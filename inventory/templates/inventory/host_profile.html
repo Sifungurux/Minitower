@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ host }}{% endblock title %}  
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'inventory/css/inventory_base.css' %}">
+
+<h1> Server profile</h1>
+<hr></hr>
+<h2>{{ title }}</h2>
+
+<div class="info">
+  <div class = "systeminfo">
+    <h3>System Info</h3>
+      {% for host in hosts %}
+      <div class"system">
+        <p>System: {{ host.systemtype }}</p>
+      </div>
+      <div class="OS">
+        <p>OS: {{ host.os_family}} {{ host.os_version }} </p>
+      </div>          
+      <div class=ip-information>
+        <p>IP: {{ host.ip }}</p>
+      </div>
+  </div>
+  <div class="hardwareinfo">
+    <h3> Hardware Info </h3>
+      <div>
+        <p>Devices:<p>
+        {% for s in storage %}
+          <p style="margin-left: 20px"> Drive: {{ s.name }} Size : {{ s.size }}</p>
+        {% endfor %}
+      </div>
+      <div>
+        Cpu cores: {{host.cores}}
+      </div>
+      <div>
+        Memory: {{host.ram}}MB
+      </div>
+      </div>
+      {% endfor %}  
+  </div>
+</div>
+{% endblock content %}
