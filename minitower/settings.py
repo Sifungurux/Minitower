@@ -42,7 +42,6 @@ INSTALLED_APPS = [
 
     'inventory.apps.InventoryConfig',
     'django_extensions',
-    'pocapp.apps.PocappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

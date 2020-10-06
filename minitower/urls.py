@@ -21,7 +21,6 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Tilføjet så appen pocapp kan tilgåes.
-    path('', include('pocapp.urls')),
     path('', include('inventory.urls')),
 
 ]
