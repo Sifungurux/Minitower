@@ -19,6 +19,7 @@ th {
   width: 200px;
   height: auto;
   font-size: 20px;
+  color:white
 }
 hr {
   max-width: 1800px;
@@ -36,6 +37,21 @@ div {
 .container  {
   display: flex;
   justify-content: center;
+}
+
+.container a:hover {
+  background-color:#4caf50; 
+  padding: 4px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 8px #bde6c2;
+}
+.container a {
+  padding: 4px;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
 }
 .systeminfo  {
   border-right: 6px solid #bde6c2;

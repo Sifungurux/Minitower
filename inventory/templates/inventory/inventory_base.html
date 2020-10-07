@@ -34,6 +34,7 @@
           <th>OS</th>
           <th>Version</th>
           </tr>
+          <tr style="height:10px"> </tr>
         {% for host in queryset %}
           <tr>
             <td><a href="{% url 'profile' host.name %}">{{ host.name }}</a></td>
@@ -41,6 +42,8 @@
             <td>{{ host.os_family}}   </td>
             <td>{{ host.os_version }} </td>
           </tr>
+        <tr style="height:3px"> </tr>
+
         {% endfor %}
         </table>
   
