@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="{% static 'inventory/css/inventory_base.css' %}">
 
 <h1> Server profile</h1>
-<hr></hr>
-<h2>{{ title }}</h2>
+<hr><h2>{{ title }}</h2></hr>
 
 <div class="info">
   <div class = "systeminfo">
@@ -18,29 +17,33 @@
       <div class"system">
         <p>System: {{ host.systemtype }}</p>
       </div>
-      <div class="OS">
-        <p>OS: {{ host.os_family}} {{ host.os_version }} </p>
-      </div>          
-      <div class=ip-information>
-        <p>IP: {{ host.ip }}</p>
+    </div>
+  {% endfor %}
+  <div class = "serverinfo">
+      <h3>System Info</h3>
+        {% for host in hostHW %}
+        <div>
+          <p>OS: {{ host.os_family}} {{ host.os_version }} </p>
+        </div>
+        <div>       
+          <p>IP: {{ host.ip }}</p>
+        </div>
       </div>
-  </div>
   <div class="hardwareinfo">
     <h3> Hardware Info </h3>
       <div>
-        <p>Devices:<p>
-        {% for s in storage %}
-          <p style="margin-left: 20px"> Drive: {{ s.name }} Size : {{ s.size }}</p>
+          <p>Devices:<p>
+          {% for s in storage %}
+            <p style="margin-left: 20px"> Drive: {{ s.name }} Size : {{ s.size }}</p>
+          {% endfor %}
+      </div>
+      <div>
+          <p>Cpu cores: {{host.cores}}</p>
+      </div>
+      <div>
+          <p>Memory: {{host.ram}}MB</p>
+      </div>
+    </div>
         {% endfor %}
-      </div>
-      <div>
-        Cpu cores: {{host.cores}}
-      </div>
-      <div>
-        Memory: {{host.ram}}MB
-      </div>
-      </div>
-      {% endfor %}  
-  </div>
-</div>
+
 {% endblock content %}

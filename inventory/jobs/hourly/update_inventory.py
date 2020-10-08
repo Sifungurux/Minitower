@@ -5,6 +5,8 @@ import sys
 
 from django_extensions.management.jobs import HourlyJob
 from inventory.models import Inventory
+from hosts.models import hosts
+
 from jsonpath_ng import jsonpath, parse
 
 
@@ -77,44 +79,44 @@ class Job(HourlyJob):
         if "Linux" == system:
             if 'mem' in expressions:
                 print("Updating memory..."), Inventory.objects.filter(
-                    name=host).update(ram=match[0].value)
+                    host=host).update(ram=match[0].value)
             if 'address' in expressions:
                 print("Updating IP-Address..."), Inventory.objects.filter(
-                    name=host).update(ip=match[0].value)
+                    host=host).update(ip=match[0].value)
             if 'processor_count' in expressions:
                 print("Updating CPU Cores..."), Inventory.objects.filter(
-                    name=host).update(cores=match[0].value)
+                    host=host).update(cores=match[0].value)
             if 'os_family' in expressions:
                 print("Updating OS Name..."), Inventory.objects.filter(
-                    name=host).update(os_family=match[0].value)
+                    host=host).update(os_family=match[0].value)
             if 'distribution_version' in expressions:
                 print("Updating OS Version..."), Inventory.objects.filter(
-                    name=host).update(os_version=match[0].value)
+                    host=host).update(os_version=match[0].value)
             if 'ansible_system' in expressions:
                 print("Updating System Name..."), Inventory.objects.filter(
-                    name=host).update(system=match[0].value)
+                    host=host).update(system=match[0].value)
 
         if "Windows" == system:
             if 'mem' in expressions:
                 print("Updating memory..."), Inventory.objects.filter(
-                    name=host).update(ram=match[0].value)
+                    host=host).update(ram=match[0].value)
             if 'address' in expressions:
                 print("Updating IP-Address..."), Inventory.objects.filter(
-                    name=host).update(ip=match[0].value[0])
+                    host=host).update(ip=match[0].value[0])
             if 'processor_count' in expressions:
                 print("Updating CPU Cores..."), Inventory.objects.filter(
-                    name=host).update(cores=match[0].value)
+                    host=host).update(cores=match[0].value)
             if 'os_family' in expressions:
                 print("Updating System Name..."), Inventory.objects.filter(
-                    name=host).update(system=match[0].value)
+                    host=host).update(system=match[0].value)
             if 'os_name' in expressions:
                 get_name = match[0].value
 
                 get_name = get_name.split('Windows')
                 print("Updating OS Name..."), Inventory.objects.filter(
-                    name=host).update(os_family=get_name[0])
+                    host=host).update(os_family=get_name[0])
                 print("Updating OS Version..."), Inventory.objects.filter(
-                    name=host).update(os_version=get_name[1])
+                    host=host).update(os_version=get_name[1])
 
     def update_storage(self, facts_data, system, host):
         """
@@ -135,7 +137,7 @@ class Job(HourlyJob):
                         "size": size[0]
                     })
             devices_size = json.dumps(devices_size, indent=2)
-            Inventory.objects.filter(name=host).update(storage=devices_size)
+            Inventory.objects.filter(host=host).update(storage=devices_size)
         if "Windows" == system:
             self.get_windows_disc_facts(host)
 
@@ -182,7 +184,7 @@ class Job(HourlyJob):
                 set_db_disk = False
         
         devices_size = json.dumps(devices_size, indent=2)
-        Inventory.objects.filter(name=host).update(storage=devices_size)                    
+        Inventory.objects.filter(host=host).update(storage=devices_size)                    
 
             
     def execute(self):
@@ -196,8 +198,8 @@ class Job(HourlyJob):
         """
         print("Cronjob køre!!")
         hosts_update = 0
-        for hosts in Inventory.objects.all():
-            facts_data = self.get_server_facts(str(hosts))
+        for host in hosts.objects.all():
+            facts_data = self.get_server_facts(str(host))
             print("Getting system name")
             if "Linux" == facts_data['ansible_facts']['ansible_system']:
                 os_system = 'Linux'
@@ -207,10 +209,10 @@ class Job(HourlyJob):
             for expressions in self.get_fact_expressions(os_system):
                 jsonpath_expression = parse(expressions)
                 match = jsonpath_expression.find(facts_data)
-                self.update_inventory_db(match, os_system, hosts, expressions)
+                self.update_inventory_db(match, os_system, host, expressions)
 
-            self.update_storage(facts_data, os_system, hosts)
-            print("Host:{} - Updated".format(str(hosts)))
+            self.update_storage(facts_data, os_system, host)
+            print("Host:{} - Updated".format(str(host)))
             hosts_update += 1
 
         print("Number of hosts updated: {}".format(hosts_update))

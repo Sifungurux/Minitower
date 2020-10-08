@@ -1,9 +1,10 @@
 from django.db import models
+from hosts.models import hosts
+
 
 class Inventory(models.Model):
-    name = models.CharField('Host Name', max_length=120)
+    host = models.ForeignKey(hosts, default=1, on_delete=models.SET_DEFAULT)
     ip = models.CharField('IP Address', max_length=20)
-    systemtype = models.CharField('Set system type', max_length=120 , default='PD_infra')
     cores = models.IntegerField('Number of cores')
     ram = models.IntegerField('Amount of memory')
     storage = models.CharField('Total space in Giga as a list', max_length=120)

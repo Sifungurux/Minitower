@@ -24,6 +24,10 @@ th {
 hr {
   max-width: 1800px;
   margin: auto;
+  height:2px;
+  background-color: #4caf50;
+  border: 2px solid #bde6c2;
+  border-radius: inherit;
 }
 div {
   margin-right:10px;
@@ -53,13 +57,29 @@ div {
   font-weight: bold;
   text-decoration: none;
 }
-.systeminfo  {
-  border-right: 6px solid #bde6c2;
-}
+
 .info  {
   display: flex;
   justify-content: center;
+
 }
+
+.systeminfo {
+  width: 33%;
+  border-right: 6px solid #4caf50;  
+  border-left: 6px solid #4caf50;
+  padding: 10px;
+}
+.serverinfo {
+  width: 33%;
+  border-right: 6px solid #4caf50;
+}
+.hardwareinfo {
+  width: 33%;
+  border-right: 6px solid #4caf50;
+}
+
+
 /* Footer css */
 footer {
   position: fixed;

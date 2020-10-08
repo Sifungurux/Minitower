@@ -37,7 +37,7 @@
           <tr style="height:10px"> </tr>
         {% for host in queryset %}
           <tr>
-            <td><a href="{% url 'profile' host.name %}">{{ host.name }}</a></td>
+            <td><a href="{% url 'profile' host.host %}">{{ host.host }}</a></td>
             <td>{{ host.systemtype }} </td>
             <td>{{ host.os_family}}   </td>
             <td>{{ host.os_version }} </td>
