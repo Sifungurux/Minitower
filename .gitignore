@@ -128,3 +128,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# config app configfiles and difference
+config/configfiles/*
+config/difference/*
+
+# Exception to the config app rule
+!config/configfiles/.gitkeep
+!config/difference/.gitkeep
