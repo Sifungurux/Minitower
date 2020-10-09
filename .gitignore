@@ -137,3 +137,5 @@ config/difference/*
 # Exception to the config app rule
 !config/configfiles/.gitkeep
 !config/difference/.gitkeep
+
+/*/migrations

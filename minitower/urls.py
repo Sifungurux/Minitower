@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Tilføjet så appen pocapp kan tilgåes.
     path('', include('inventory.urls')),
-    path('compare', include('config.urls')),
+    path('', include('config.urls')),
 
 ]

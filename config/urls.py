@@ -17,7 +17,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name = 'config-home'),
+    path('/config', views.home, name = 'config-home'),
     # path('doc/', views.doc, name = 'config-doc'),
     # path('api', views.api, name = 'config-api'),
 ]
