@@ -1,12 +1,12 @@
 ---
 
 - name: Get file from remote host.
-  hosts: localhost #"{{ host }}" # TODO husk at ændre tilbage
+  hosts: "{{ host }}"
   tasks:
 
   - name: Get config file from remote host.
     fetch:
       src: "{{ item }}"
-      dest: "fetched/{{host}}/" # TODO add config file name
+      dest: "fetched/{{host}}/"
       flat: yes
     with_lines: "cat {{ files }}"

@@ -133,9 +133,13 @@ dmypy.json
 # config app configfiles and difference
 config/configfiles/*
 config/difference/*
+config/jobs/ansible/fetched/*
+config/jobs/ansible/generated/*
 
 # Exception to the config app rule
 !config/configfiles/.gitkeep
 !config/difference/.gitkeep
+!config/jobs/ansible/fetched/.gitkeep
+!config/jobs/ansible/generated/.gitkeep
 
 /*/migrations

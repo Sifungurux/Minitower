@@ -1,2 +1,0 @@
-/home/lhp/projekter/minitowerprojekt/remote/file2.txt
-/home/lhp/projekter/minitowerprojekt/remote/file.txt
