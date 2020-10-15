@@ -7,14 +7,13 @@ pipeline {
             args '-u root:sudo'
         }
     } 
-    environment {
-        AMBARI_ACCESS_KEY_ID = credentials('AmbariToken')    }
+    environment { }
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
                 git branch: 'develop', credentialsId: '450a16eb-3a60-49f7-9577-cd62c89a6c17', url: 'https://github.ccta.dk/Produktionssatte-datalosninger/Minitower.git'
-                //sh 'pip install --no-cache-dir -r requirements.txt'
+                sh 'pip install --no-cache-dir -r test/requirements.txt'
             }
         }
         stage('Test') {
