@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                git branch: 'development', credentialsId: '450a16eb-3a60-49f7-9577-cd62c89a6c17', url: 'https://github.ccta.dk/Produktionssatte-datalosninger/Minitower.git'
+                git branch: 'develop', credentialsId: '450a16eb-3a60-49f7-9577-cd62c89a6c17', url: 'https://github.ccta.dk/Produktionssatte-datalosninger/Minitower.git'
                 //sh 'pip install --no-cache-dir -r requirements.txt'
             }
         }
