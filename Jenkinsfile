@@ -44,7 +44,7 @@ pipeline {
             }
             always {
                 // Deletes the Jenkins workspace (local copy of Repo).
-                cleanWs deleteDirs: true
+                cleanWs()
             }
         }
 }
