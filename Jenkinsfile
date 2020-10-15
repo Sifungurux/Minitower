@@ -32,8 +32,8 @@ pipeline {
                     sh('git checkout production')
                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.ccta.dk/Produktionssatte-datalosninger/Ambari-Api-monitoring.git')
                 }  
-            }*/
-        }
+            }
+        }*/
     }
         post {
             success {
