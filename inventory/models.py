@@ -3,7 +3,7 @@ from hosts.models import hosts
 
 
 class Inventory(models.Model):
-    host = models.ForeignKey(hosts, default=1, on_delete=models.SET_DEFAULT)
+    host = models.CharField('host name', primary_key=True,default=None, max_length=120)
     ip = models.CharField('IP Address', max_length=20)
     cores = models.IntegerField('Number of cores')
     ram = models.IntegerField('Amount of memory')
