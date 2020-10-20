@@ -1,0 +1,8 @@
+[run]
+omit = 
+    migrations/*
+    jobs/sample.py
+    manage.py
+    jobs/*/__init__.py
+    jobs/__init__.py
+    __init__.py     
