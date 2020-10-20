@@ -7,7 +7,7 @@ pipeline {
             args '-u root:sudo'
         }
     } 
-    environment { }
+    /*environment { }*/
     stages {
         stage('Build') {
             steps {
@@ -21,7 +21,7 @@ pipeline {
                 echo 'Testing..'
                 echo 'POC test'
                 sh 'export PYTHONUNBUFFERED=1'
-                //sh 'python -m pytest --junitxml=build/results.xml'
+                sh 'python -m pytest --junitxml=build/results.xml'
             }
         }/*
         stage('Deploy') {
