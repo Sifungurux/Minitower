@@ -6,4 +6,3 @@ django-environ
 pytest
 pytest-django
 pytest-cov
-unittest
