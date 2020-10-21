@@ -2,3 +2,8 @@ django == 3.1.1
 jsonpath-ng
 ansible
 django-extensions
+django-environg
+pytest
+pytest-django
+pytest-cov
+unittest
