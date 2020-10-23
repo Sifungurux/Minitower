@@ -16,27 +16,18 @@ def profile(request, hostname):
     hostinfo = hosts.objects.all()
     hostinfo = hostinfo.filter(hostname__iexact=hostname)
 
-    hostHW = Inventory.objects.raw('SELECT * FROM inventory_inventory WHERE host_id = %s', [hostname])
+    hostHW = Inventory.objects.raw('SELECT * FROM inventory_inventory WHERE host = %s', [hostname])
     for s in hostHW:
-        json_obj = s.storage
-        storage_qs = json.loads(json_obj)
-    """
-    Test json
-    {
-        "devices": [
-            {
-            "name": "sda", 
-            "size": "60.00 GB"
-            },
-            {
-            "name": "sdb", 
-            "size": "60.00 GB"
-            }
-        ]
-    }
+        if s.storage is not '':
+            json_obj = s.storage
+            storage_qs = json.loads(json_obj)
+        else:
+            storage_qs = {"devices": []}
+            storage_qs["devices"].append({
+                "name": "no_devices",
+                "size": "-"
+            })
 
-    "
-       """
     context = {
         'title': hostname,
         'hosts': hostinfo,
@@ -61,7 +52,7 @@ def filter(request):
     if is_valid_queryparam(host_query):
         qs = qs.filter(
             Q(host__icontains=host_query)   |
-            Q(systemtype__icontains=host_query)  |
+            Q(system__icontains=host_query)  |
             Q(os_family__icontains=host_query)  |
             Q(os_version__icontains=host_query)
         ).distinct()
