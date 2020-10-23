@@ -33,7 +33,7 @@ SECRET_KEY = 'a#8_s(j3cpf$n%2k_4bcd7l#37_3d_4guzzu6(q242s*$t))u@'
 DEBUG = True
 
 ALLOWED_HOSTS = ['infappudv01.ccta.dk']
-
+# ALLOWD LOCALHOST
 
 
 # Application definition
