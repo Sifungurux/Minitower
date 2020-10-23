@@ -21,7 +21,7 @@ pipeline {
                 echo 'Testing..'
                 echo 'POC test'
                 sh 'export PYTHONUNBUFFERED=1'
-                writeFile file: '.env', text: DATABASE='sqlite3'
+                writeFile file: 'minitower/.env', text: 'DATABASE=\'sqlite3\''
                 sh 'python -m pytest --junitxml=build/results.xml'
             }
         }/*
