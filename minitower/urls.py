@@ -23,5 +23,7 @@ urlpatterns = [
     # Tilføjet så appen pocapp kan tilgåes.
     path('', include('inventory.urls')),
     path('', include('config.urls')),
+    path('', include('home.urls')),
+
 
 ]
