@@ -32,7 +32,7 @@ SECRET_KEY = 'a#8_s(j3cpf$n%2k_4bcd7l#37_3d_4guzzu6(q242s*$t))u@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['infappudv01.ccta.dk']
 
 
 
