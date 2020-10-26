@@ -16,7 +16,7 @@ def profile(request, hostname):
     hostinfo = hosts.objects.all()
     hostinfo = hostinfo.filter(hostname__iexact=hostname)
 
-    hostHW = Inventory.objects.raw('SELECT * FROM inventory_inventory WHERE host = %s', [hostname])
+    hostHW = Inventory.objects.raw('SELECT * FROM inventory_inventory WHERE host_id = %s', [hostname])
     for s in hostHW:
         if s.storage is not '':
             json_obj = s.storage
@@ -40,6 +40,7 @@ def profile(request, hostname):
 def index(request):
     title = "Host Overview"
     qs = filter(request)
+    print(str(qs.query))
     context = {
         'title': title,
         'queryset': qs
@@ -47,13 +48,13 @@ def index(request):
     return render(request, 'inventory/inventory_base.html', context)
 
 def filter(request):
-    qs = Inventory.objects.all()
+    qs = Inventory.objects.all().select_related()
     host_query = request.GET.get('host_search')
     if is_valid_queryparam(host_query):
         qs = qs.filter(
-            Q(host__icontains=host_query)   |
+            Q(host__hostname__icontains=host_query)   |
             Q(system__icontains=host_query)  |
             Q(os_family__icontains=host_query)  |
             Q(os_version__icontains=host_query)
-        ).distinct()
+        ).distinct().select_related()
     return qs

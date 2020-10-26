@@ -30,21 +30,25 @@
         <table >
           <tr>
           <th>Hostname</th>
-          <th>System type</th>
+          <th>System</th>
           <th>OS</th>
           <th>Version</th>
+          <th>Status</th>
           </tr>
           <tr style="height:10px"> </tr>
         {% for host in queryset %}
           <tr>
             <td><a href="{% url 'profile' host.host %}">{{ host.host }}</a></td>
-            <td>{{ host.systemtype }} </td>
+            <td>{{ host.host.systemtype }} </td>
             <td>{{ host.os_family}}   </td>
             <td>{{ host.os_version }} </td>
+            <td>{{ host.host.server_status }} </td>
+
+        {% endfor %}
           </tr>
         <tr style="height:3px"> </tr>
 
-        {% endfor %}
+        
         </table>
   
    </div>
