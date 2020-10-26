@@ -52,9 +52,11 @@ def filter(request):
     host_query = request.GET.get('host_search')
     if is_valid_queryparam(host_query):
         qs = qs.filter(
-            Q(host__hostname__icontains=host_query)   |
-            Q(system__icontains=host_query)  |
-            Q(os_family__icontains=host_query)  |
-            Q(os_version__icontains=host_query)
+            Q(host__hostname__icontains=host_query)         |
+            Q(system__icontains=host_query)                 |
+            Q(os_family__icontains=host_query)              |
+            Q(os_version__icontains=host_query)             |
+            Q(host__server_status__icontains=host_query)    |
+            Q(host__systemtype__icontains=host_query)
         ).distinct().select_related()
     return qs

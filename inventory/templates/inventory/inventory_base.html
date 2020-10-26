@@ -42,7 +42,7 @@
             <td>{{ host.host.systemtype }} </td>
             <td>{{ host.os_family}}   </td>
             <td>{{ host.os_version }} </td>
-            <td>{{ host.host.server_status }} </td>
+            <td>{{ host.host.server_status }} - Port:{{ host.host.connectiontype }}</td>
 
         {% endfor %}
           </tr>
