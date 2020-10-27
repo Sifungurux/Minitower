@@ -13,7 +13,7 @@ def setup_inventory_host(classArg, host='localhost', ):
 def setup_inventory_table():
 
     Inventory.objects.create(
-        host = "localhost", 
+        host_id = "localhost", 
         ip = "1.2.3.4", 
         cores = 4, 
         ram = 4, 
