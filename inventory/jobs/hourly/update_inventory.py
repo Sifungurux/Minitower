@@ -28,13 +28,17 @@ class Job(HourlyJob):
         Returns:
             json_object: Json_object containing server data
         """
-        ansible_output = subprocess.Popen(['ansible', host, '-m', 'setup', '-o'],
-                                          stdout=subprocess.PIPE,
-                                          stderr=subprocess.STDOUT)
-        stdout, stderr = ansible_output.communicate()
-        stdout = stdout.decode()
-        json_data = stdout.split('=>')
-        return json.loads(json_data[1])
+        try:
+            ansible_output = subprocess.Popen(['ansible', host, '-m', 'setup', '-o'],
+                                            stdout=subprocess.PIPE,
+                                            stderr=subprocess.STDOUT)
+            stdout, stderr = ansible_output.communicate()
+            stdout = stdout.decode()
+
+            json_data = stdout.split('=>')
+            return json.loads(json_data[1])
+        except IndexError: 
+            return 'unreachable'
 
     def get_fact_expressions(self, system):
         """
@@ -54,6 +58,7 @@ class Job(HourlyJob):
                 '$.ansible_facts.ansible_os_family',
                 '$.ansible_facts.ansible_distribution_version',
                 '$.ansible_facts.ansible_system',
+                '$.ansible_facts.ansible_system_vendor',
             ]
 
         if "Windows" == system:
@@ -63,6 +68,8 @@ class Job(HourlyJob):
                 '$.ansible_facts.ansible_processor_count',
                 '$.ansible_facts.ansible_os_family',
                 '$.ansible_facts.ansible_os_name',
+                '$.ansible_facts.ansible_system_vendor',
+                '$.ansible_facts.ansible_owner_name',
             ]
         return fact_expressions
 
@@ -77,39 +84,44 @@ class Job(HourlyJob):
             expressions (string): Contains a predefind search string for matching values
         """
         if "Linux" == system:
-            if 'mem' in expressions:
+            if '$.ansible_facts.ansible_memtotal_mb' == expressions:
                 print("Updating memory..."), Inventory.objects.filter(
                     host=host).update(ram=match[0].value)
-            if 'address' in expressions:
+            if '$.ansible_facts.ansible_default_ipv4.address' == expressions:
                 print("Updating IP-Address..."), Inventory.objects.filter(
                     host=host).update(ip=match[0].value)
-            if 'processor_count' in expressions:
+            if '$.ansible_facts.ansible_processor_count' == expressions:
                 print("Updating CPU Cores..."), Inventory.objects.filter(
                     host=host).update(cores=match[0].value)
-            if 'os_family' in expressions:
+            if '$.ansible_facts.ansible_os_family' == expressions:
                 print("Updating OS Name..."), Inventory.objects.filter(
                     host=host).update(os_family=match[0].value)
-            if 'distribution_version' in expressions:
+            if '$.ansible_facts.ansible_distribution_version' == expressions:
                 print("Updating OS Version..."), Inventory.objects.filter(
                     host=host).update(os_version=match[0].value)
-            if 'ansible_system' in expressions:
+            if '$.ansible_facts.ansible_system_vendor' == expressions:
+                print("Updating System vendor..."), hosts.objects.filter(
+                    hostname=host).update(system_vendor=match[0].value) 
+            if '$.ansible_facts.ansible_system' == expressions:
                 print("Updating System Name..."), Inventory.objects.filter(
                     host=host).update(system=match[0].value)
+     
 
         if "Windows" == system:
-            if 'mem' in expressions:
+            print(expressions)
+            if '$.ansible_facts.ansible_memtotal_mb' == expressions:
                 print("Updating memory..."), Inventory.objects.filter(
                     host=host).update(ram=match[0].value)
-            if 'address' in expressions:
+            if '$.ansible_facts.ansible_ip_addresses' == expressions:
                 print("Updating IP-Address..."), Inventory.objects.filter(
                     host=host).update(ip=match[0].value[0])
-            if 'processor_count' in expressions:
+            if '$.ansible_facts.ansible_processor_count' == expressions:
                 print("Updating CPU Cores..."), Inventory.objects.filter(
                     host=host).update(cores=match[0].value)
-            if 'os_family' in expressions:
+            if '$.ansible_facts.ansible_os_family' == expressions:
                 print("Updating System Name..."), Inventory.objects.filter(
                     host=host).update(system=match[0].value)
-            if 'os_name' in expressions:
+            if '$.ansible_facts.ansible_os_name' == expressions:
                 get_name = match[0].value
 
                 get_name = get_name.split('Windows')
@@ -117,6 +129,12 @@ class Job(HourlyJob):
                     host=host).update(os_family=get_name[0])
                 print("Updating OS Version..."), Inventory.objects.filter(
                     host=host).update(os_version=get_name[1])
+            if '$.ansible_facts.ansible_system_vendor' == expressions:
+                print("Updating System vendor..."), hosts.objects.filter(
+                    hostname=host).update(system_vendor=match[0].value)
+            if '$.ansible_facts.ansible_owner_name' == expressions:
+                print("Updating System owner..."), hosts.objects.filter(
+                    hostname=host).update(system_owner=match[0].value)    
 
     def update_storage(self, facts_data, system, host):
         """
@@ -200,19 +218,22 @@ class Job(HourlyJob):
         hosts_update = 0
         for host in hosts.objects.all():
             facts_data = self.get_server_facts(str(host))
-            print("Getting system name")
-            if "Linux" == facts_data['ansible_facts']['ansible_system']:
-                os_system = 'Linux'
-            else:
-                os_system = "Windows"
-            print("Starting update of inventory")
-            for expressions in self.get_fact_expressions(os_system):
-                jsonpath_expression = parse(expressions)
-                match = jsonpath_expression.find(facts_data)
-                self.update_inventory_db(match, os_system, host, expressions)
+            try:
+                print("Getting system name")
 
-            self.update_storage(facts_data, os_system, host)
-            print("Host:{} - Updated".format(str(host)))
-            hosts_update += 1
+                if "Linux" == facts_data['ansible_facts']['ansible_system']:
+                    os_system = 'Linux'
+                else:
+                    os_system = "Windows"
+                print("Starting update of inventory")
+                for expressions in self.get_fact_expressions(os_system):
+                    jsonpath_expression = parse(expressions)
+                    match = jsonpath_expression.find(facts_data)
+                    self.update_inventory_db(match, os_system, host, expressions)
 
+                self.update_storage(facts_data, os_system, host)
+                print("Host:{} - Updated".format(str(host)))
+                hosts_update += 1
+            except TypeError: 
+                continue
         print("Number of hosts updated: {}".format(hosts_update))
