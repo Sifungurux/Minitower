@@ -19,7 +19,9 @@ def setup_inventory_table():
         ram = 4, 
         storage = '{"devices": [{"name": key,"size": size[0]}]}'
     )
-
+    hosts.objects.create(
+        hostname = "localhost"
+    )
     return Inventory.objects.last()
 
 def get_ipvalidation(ip):
@@ -78,7 +80,7 @@ class TestInventoryValues(TestCase):
 
     def test_count_expressions_linux(self):
 
-        list_elements = 6
+        list_elements = 7
         setup_inventory_host(self)
         
         self.assertEqual(len(Job_inventory.get_fact_expressions(self, 'Linux')), list_elements)
@@ -93,7 +95,7 @@ class TestInventoryValues(TestCase):
 
     def test_count_expressions_windows(self):
 
-        list_elements = 5
+        list_elements = 7
         setup_inventory_host(self)
         
         self.assertEqual(len(Job_inventory.get_fact_expressions(self, 'Windows')), list_elements)
@@ -167,7 +169,7 @@ class testModels(TestCase):
         docstring
         """
         queryset = setup_inventory_table()       
-        self.assertEqual(queryset.host, 'localhost')
+        self.assertEqual(str(queryset.host), 'localhost')
     
     def test_inventory_models_IP(self):
         """
