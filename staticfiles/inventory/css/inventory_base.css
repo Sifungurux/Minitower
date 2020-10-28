@@ -79,7 +79,21 @@ div {
   border-right: 6px solid #4caf50;
 }
 
+.upstatus {
+  text-align:center;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color:#00f50a; 
+  height:fit-content
+}
 
+.downstatus {
+  text-align:center;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color:#ff0000; 
+  height:fit-content
+}
 /* Footer css */
 footer {
   position: fixed;
