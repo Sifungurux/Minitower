@@ -84,22 +84,22 @@ class Job(HourlyJob):
             expressions (string): Contains a predefind search string for matching values
         """
         if "Linux" == system:
-            if 'mem' in expressions:
+            if '$.ansible_facts.ansible_memtotal_mb' == expressions:
                 print("Updating memory..."), Inventory.objects.filter(
                     host=host).update(ram=match[0].value)
-            if 'address' in expressions:
+            if '$.ansible_facts.ansible_default_ipv4.address' == expressions:
                 print("Updating IP-Address..."), Inventory.objects.filter(
                     host=host).update(ip=match[0].value)
-            if 'processor_count' in expressions:
+            if '$.ansible_facts.ansible_processor_count' == expressions:
                 print("Updating CPU Cores..."), Inventory.objects.filter(
                     host=host).update(cores=match[0].value)
-            if 'os_family' in expressions:
+            if '$.ansible_facts.ansible_os_family' == expressions:
                 print("Updating OS Name..."), Inventory.objects.filter(
                     host=host).update(os_family=match[0].value)
-            if 'distribution_version' in expressions:
+            if '$.ansible_facts.ansible_distribution_version' == expressions:
                 print("Updating OS Version..."), Inventory.objects.filter(
                     host=host).update(os_version=match[0].value)
-            if 'vendor' in expressions:
+            if '$.ansible_facts.ansible_system_vendor' == expressions:
                 print("Updating System vendor..."), hosts.objects.filter(
                     hostname=host).update(system_vendor=match[0].value) 
             if '$.ansible_facts.ansible_system' == expressions:
@@ -108,19 +108,20 @@ class Job(HourlyJob):
      
 
         if "Windows" == system:
-            if 'mem' in expressions:
+            print(expressions)
+            if '$.ansible_facts.ansible_memtotal_mb' == expressions:
                 print("Updating memory..."), Inventory.objects.filter(
                     host=host).update(ram=match[0].value)
-            if 'address' in expressions:
+            if '$.ansible_facts.ansible_ip_addresses' == expressions:
                 print("Updating IP-Address..."), Inventory.objects.filter(
                     host=host).update(ip=match[0].value[0])
-            if 'processor_count' in expressions:
+            if '$.ansible_facts.ansible_processor_count' == expressions:
                 print("Updating CPU Cores..."), Inventory.objects.filter(
                     host=host).update(cores=match[0].value)
-            if 'os_family' in expressions:
+            if '$.ansible_facts.ansible_os_family' == expressions:
                 print("Updating System Name..."), Inventory.objects.filter(
                     host=host).update(system=match[0].value)
-            if 'os_name' in expressions:
+            if '$.ansible_facts.ansible_os_name' == expressions:
                 get_name = match[0].value
 
                 get_name = get_name.split('Windows')
@@ -128,10 +129,10 @@ class Job(HourlyJob):
                     host=host).update(os_family=get_name[0])
                 print("Updating OS Version..."), Inventory.objects.filter(
                     host=host).update(os_version=get_name[1])
-            if 'ansible_system_vendor' in expressions:
+            if '$.ansible_facts.ansible_system_vendor' == expressions:
                 print("Updating System vendor..."), hosts.objects.filter(
                     hostname=host).update(system_vendor=match[0].value)
-            if 'ansible_system_vendor' in expressions:
+            if '$.ansible_facts.ansible_owner_name' == expressions:
                 print("Updating System owner..."), hosts.objects.filter(
                     hostname=host).update(system_owner=match[0].value)    
 
