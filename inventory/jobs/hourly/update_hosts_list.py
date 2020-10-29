@@ -14,13 +14,14 @@ class Job(HourlyJob):
         win_hosts = []
         for  hostname in hosts.objects.all():
             hostname = str(hostname)
+
             for p in range(len(port)):
                 ansible_output = subprocess.Popen(['nc', '-zvw1', hostname , str(port[p])], 
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT)
                 stdout, stderr = ansible_output.communicate()
                 stdout = stdout.decode()
-                if 'open' in stdout:
+                if ('open' in stdout) or ('Connected' in stdout):
                     if port[p] == 22:
                         Inventory.objects.filter(host=hostname).update(system='Linux')
                         hosts.objects.filter(hostname=hostname).update(connectiontype=22)
@@ -34,7 +35,7 @@ class Job(HourlyJob):
 
 
     def set_dynamic_inventory(self, linux_hosts, win_hosts):
-        inventoryfile = open("inventory.txt", "w")
+        inventoryfile = open("ansible_hosts", "w")
         inventoryfile.writelines("[linux]\n")
         for host in linux_hosts:
             inventoryfile.write("{}\n".format(host))
@@ -57,11 +58,12 @@ class Job(HourlyJob):
                                             stderr=subprocess.STDOUT)
         stdout, stderr = ansible_output.communicate()
         stdout = stdout.decode()
-        if 'UNREACHABLE!' in stdout:
+        try:
+             json_data = stdout.split('=>')
+             return json.loads(json_data[1])
+
+        except IndexError:
             return 'unreachable'
-        else:   
-            json_data = stdout.split('=>')
-            return json.loads(json_data[1])
 
 
     def set_server_state(self, hostname):
