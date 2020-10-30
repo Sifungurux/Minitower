@@ -32,7 +32,7 @@
           <th>Hostname</th>
           <th style="width:20px"><img src="{% static "inventory/img/RDP.png" %}" alt="ssh"/></th>
           <th>System</th>
-          <th>OS</th>
+          <th>Server type</th>
           <th>Version</th>
           <th>Status</th>
           <th >Connection</th>
@@ -48,8 +48,8 @@
             {% else %}
             <td style="width:35px; text-align:center"><img src="{% static "inventory/img/RDP.png" %}" alt="ssh"/></td>
             {% endif %}
-            <td>{{ host.host.systemtype }} </td>
-            <td>{{ host.os_family}}   </td>
+            <td>{{ host.host.systemproduct  }} </td>
+            <td style="width:10px">{{ host.host.systemtype}}   </td>
             <td>{{ host.os_version }} </td>
             {% if host.host.server_status == "Connected" %}
             <td class="upstatus">{{ host.host.server_status }}</td>
@@ -64,10 +64,8 @@
         {% endfor %}
           </tr>
         <tr style="height:3px"> </tr>
-
-        
+     
         </table>
-  
    </div>
 </div>  
 {% endblock content %}
