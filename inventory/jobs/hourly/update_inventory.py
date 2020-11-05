@@ -113,8 +113,11 @@ class Job(HourlyJob):
                 print("Updating memory..."), Inventory.objects.filter(
                     host=host).update(ram=match[0].value)
             if '$.ansible_facts.ansible_ip_addresses' == expressions:
-                print("Updating IP-Address..."), Inventory.objects.filter(
-                    host=host).update(ip=match[0].value[0])
+                print("Updating IP-Address...")
+                if "fe80" in match[0].value[0]:
+                    Inventory.objects.filter(host=host).update(ip=match[0].value[1])
+                else:
+                    Inventory.objects.filter(host=host).update(ip=match[0].value[0])
             if '$.ansible_facts.ansible_processor_count' == expressions:
                 print("Updating CPU Cores..."), Inventory.objects.filter(
                     host=host).update(cores=match[0].value)
