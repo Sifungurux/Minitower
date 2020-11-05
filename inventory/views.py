@@ -60,3 +60,4 @@ def filter(request):
             Q(host__systemtype__icontains=host_query)
         ).distinct().select_related()
     return qs
+
