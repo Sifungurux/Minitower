@@ -1,6 +1,0 @@
-[linux]
-infappudv01.ccta.dk
-
-[windows]
-infwinappudv.ccta.dk
-sktp1ijsw0ma02.ccta.dk
