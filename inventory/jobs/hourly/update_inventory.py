@@ -108,7 +108,6 @@ class Job(HourlyJob):
      
 
         if "Windows" == system:
-            print(expressions)
             if '$.ansible_facts.ansible_memtotal_mb' == expressions:
                 print("Updating memory..."), Inventory.objects.filter(
                     host=host).update(ram=match[0].value)
@@ -185,10 +184,8 @@ class Job(HourlyJob):
         device = 0
         while set_db_disk:
             try:
-                device_letter = disc_data['ansible_facts']['ansible_disks'][device]['partitions'][0]['access_paths'][0]
-                print(device_letter)
-                device_letter = device_letter.split(':')
-                print("test 1")
+                device_letter = disc_data['ansible_facts']['ansible_disks'][device]['partitions'][0]['drive_letter'][0]
+                print(device_letter)                
                 disc_size = disc_data['ansible_facts']['ansible_disks'][device]['size']
                 disc_size = round(disc_size / (1024 * 1024 * 1024), 3)
             
