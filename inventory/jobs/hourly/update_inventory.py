@@ -185,13 +185,15 @@ class Job(HourlyJob):
         while set_db_disk:
             try:
                 device_letter = disc_data['ansible_facts']['ansible_disks'][device]['partitions'][0]['drive_letter'][0]
+                if device_letter is None:
+                    device_letter = disc_data['ansible_facts']['ansible_disks'][0]['partitions'][1]['drive_letter'][0]
                 print(device_letter)                
                 disc_size = disc_data['ansible_facts']['ansible_disks'][device]['size']
                 disc_size = round(disc_size / (1024 * 1024 * 1024), 3)
             
                 print(disc_size , device_letter)
                 devices_size["devices"].append({
-                    "name": str(device_letter[0]),
+                    "name": str(device_letter),
                     "size": float(disc_size)
                     })
 
@@ -225,7 +227,7 @@ class Job(HourlyJob):
                     os_system = 'Linux'
                 else:
                     os_system = "Windows"
-                print("Starting update of inventory")
+                print(f"Starting {os_system} update of inventory")
                 for expressions in self.get_fact_expressions(os_system):
                     jsonpath_expression = parse(expressions)
                     match = jsonpath_expression.find(facts_data)
