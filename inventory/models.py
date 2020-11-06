@@ -8,7 +8,7 @@ class Inventory(models.Model):
     ip = models.CharField('IP Address', max_length=20)
     cores = models.IntegerField('Number of cores')
     ram = models.IntegerField('Amount of memory')
-    storage = models.CharField('Total space in Giga as a list', max_length=120)
+    storage = models.CharField('Total space in Giga as a list', max_length=1200)
     os_family = models.CharField('OS family', max_length=50, default='RedHat')
     os_version = models.CharField('OS version', max_length=50, default='8')
     system = models.CharField('OS Type', max_length=20, default='Linux')

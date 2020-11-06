@@ -184,10 +184,11 @@ class Job(HourlyJob):
         device = 0
         while set_db_disk:
             try:
-                device_letter = disc_data['ansible_facts']['ansible_disks'][device]['partitions'][0]['drive_letter'][0]
-                if device_letter is None:
-                    device_letter = disc_data['ansible_facts']['ansible_disks'][0]['partitions'][1]['drive_letter'][0]
-                print(device_letter)                
+                if not disc_data['ansible_facts']['ansible_disks'][device]['partitions'][0]['drive_letter']:
+                    device_letter = disc_data['ansible_facts']['ansible_disks'][device]['partitions'][1]['drive_letter']
+                else:
+                    device_letter = disc_data['ansible_facts']['ansible_disks'][device]['partitions'][0]['drive_letter']
+                
                 disc_size = disc_data['ansible_facts']['ansible_disks'][device]['size']
                 disc_size = round(disc_size / (1024 * 1024 * 1024), 3)
             
