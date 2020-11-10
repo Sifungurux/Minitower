@@ -58,6 +58,15 @@ div {
   text-decoration: none;
 }
 
+.hostupload a {
+  padding: 4px;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+   display: flex;
+  justify-content: center;
+}
+
 .info  {
   display: flex;
   justify-content: center;
@@ -107,4 +116,4 @@ footer {
   background-color: #4caf50;
   color: white;
   text-align: center;
-  }
+}
