@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'home'
+    'home',
+    'upload'
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,7 @@ STATIC_URL = '/staticfiles/'
 STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),) # new
 STATIC_ROOT = STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles')) # new
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage' # new
+
+
+MEDIA_URL = '/data/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'data')
