@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}  
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'firewall/css/firewall_base.css' %}">
+<h1>{{ title }}</h1>
+<div class="searchbox">
+  <div class="child">
+    <form method="GET" action=".">
+      <div class="form-row">
+        <div class="form-group col-12">
+          <div class="input-group">
+            <input class="form-control py-2 border-right-0 border" type="search" name="fw_search" placeholder="Firewall Search..." />
+            <span class="input-group-append">
+              <div class="input-group-text bg-transparent">
+                <i class="fa fa-search"></i>
+              </div>
+            </span>
+          </div>
+        </div>        
+      </div>
+    </form>
+  </div>
+</div>
+<div class="fwupload">
+  <p><a href="{% url 'fwdata_upload' %}"> Data Upload</a></p><br>
+  
+</div>
+<div class="container">
+  <div class="child">
+        <table >
+          <tr>
+          <th>FW ID</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Port</th>
+          <th>Protocol</th>
+          <th>Status</th>
+          <th >Ticket nr.</th>
+          <th>Description/Note</th>
+          </tr>
+          <tr style="height:10px"> </tr>
+        {% for fw in queryset %}
+          <tr>
+            <td>Old id:{{ fw.oldfwid }} // New id:{{ fw.fwid }}</td>
+            <td>{{ fw.source }} // NAT {{ fw.sourcenat }}</td>
+            <td>{{ fw.dest }} // NAT {{ fw.destnat }}</td>
+            <td>{{ fw.port }}</td>
+            <td>{{ fw.protocal }}</td>
+            <td>{{ fw.status }}</td>
+            <td>{{ fw.ticket }}</td>
+            <td>{{ fw.description }}<br>{{fw.note}}</td>
+          </tr>
+        {%endfor%}
+        </table>
+   </div>
+</div>  
+{% endblock content %}
