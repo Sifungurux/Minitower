@@ -13,7 +13,6 @@ class Inventory(models.Model):
     os_version = models.CharField('OS version', max_length=50, default='8')
     system = models.CharField('OS Type', max_length=20, default='Linux')
 
-    def __str__(self):
-        return self.name
+
 
         

@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'home',
-    'upload'
+    'upload',
+    'firewall'
 ]
 
 MIDDLEWARE = [
