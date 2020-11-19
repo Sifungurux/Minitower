@@ -120,53 +120,77 @@ def set_fw_data(f):
     error_list = []
     with open(f"data/{f}", 'r', newline='', encoding='utf-8-sig') as read_obj:
         csv_dict_reader = DictReader(read_obj,dialect='excel', delimiter=';')
-        for row in csv_dict_reader:        
-            source = row['SourceIP']
-            dest = row['DestIP']
-            port = row['Port']
-            ticket = row['Remedy/jiraTicket']
-            description = row['Beskrivelse']
+        fw_rules = firewall.objects.all()
+        for row in csv_dict_reader:
+            source_system = row['src system']        
+            source = row['src']
+            dest_system = row['dest system']
+            dest = row['dest']
+            port = row['port']
+            ticket = row['Ticket']
+            description = row['Description']
 
 
-            if 'Source NAT' in row: sourcenat = row['Source NAT']
+            if 'Source NAT' in row: sourcenat = row['source nat']
             else: sourcenat = '-'
 
-            if 'Dest NAT' in row: destnat = row['DestNAT']
+            if 'Dest NAT' in row: destnat = row['dest nat']
             else: destnat = '-'
 
-            if 'Protocol' in row: protocol = row['Protocol']
+            if 'Protocol' in row: protocol = row['protocol']
             else: protocol = '-'
 
-            if 'Gammel fw ID' in row: environment = row['GammelfwID']
-            else: oldfwid = '-'
-
-            if 'Ny fw ID' in row: connectiontype = row['NyfwID']
-            else: fwid = '-'
+            if 'ref' in row: ref = row['ref']
+            else: ref = 'unset'
 
             if 'status' in row: system_vendor = row['staus']
             else: status = 'unclear'
 
-            if 'notat' in row:  system_owner = row['notat']
+            if 'notat' in row:  system_owner = row['note']
             else: note = ''
             
-            try:
-                firewall.objects.create(
-                    source = source, 
-                    dest = dest, 
-                    port = port, 
-                    ticket = ticket, 
-                    description = description,
-                    sourcenat = sourcenat,
-                    destnat = destnat,
-                    protocol = protocol,
-                    oldfwid = oldfwid,
-                    fwid = fwid,
-                    status = status,
-                    note = note
-                )  
-            except IntegrityError :
-                print(f"FW rule allready exist" )
-                error_list.append(f"Firewall rule: {source} allready exist" )
+
+            if ref == 'unset':
+                try:
+                    firewall.objects.create(
+                        source = source, 
+                        dest = dest, 
+                        port = port, 
+                        ticket = ticket, 
+                        description = description,
+                        sourcenat = sourcenat,
+                        destnat = destnat,
+                        protocol = protocol,
+                        ref = ref,
+                        status = status,
+                        note = note
+                    )  
+                except IntegrityError :
+                    print(f"FW rule allready exist" )
+                    error_list.append(f"Firewall rule: {source} allready exist" )
+            if ref is not 'unset':
+                for id_nr in fw_rules: 
+                    fw_entry = firewall.objects.get(id=id_nr)
+                    if fw_entry.source == row['src'] and fw_entry.dest == row['dest'] and fw_entry.port == row['port'] and ref == row['ref']:
+                        print(f"FW rule {source} -> {dest}:{port} with {ref} allready exist" )
+                        continue
+                    else:
+                        try:
+                            firewall.objects.create(
+                            source = source, 
+                            dest = dest, 
+                            port = port, 
+                            ticket = ticket, 
+                            description = description,
+                            sourcenat = sourcenat,
+                            destnat = destnat,
+                            protocol = protocol,
+                            ref = ref,
+                            status = status,
+                            note = note
+                            )  
+                        except IntegrityError:
+                            error_list.append(IntegrityError)
 
     if len(error_list) == 0:
         error_list.append("Not errors incounted")

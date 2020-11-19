@@ -6,11 +6,19 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'inventory/css/inventory_base.css' %}">
+<h2>{{ title }}</h2>
+<hr>
+ 
+<div class="page-warpper" style="max-width: 1500px; background-color:gray; margin:auto" >
 
-<h1> Server profile</h1>
-<hr><h2>{{ title }}</h2></hr>
+    <div class="hostinfo" style="height: 10%; max-width: 300px; background-color:darkgrey">
 
-<div class="info">
+    </div>
+
+</div>
+
+
+<div class="info" style="max-width:fit-content; margin:auto">
   <div class = "systeminfo">
     <h3>System Info</h3>
       {% for host in hosts %}
@@ -47,5 +55,6 @@
       </div>
     </div>
         {% endfor %}
+  </div>
 
 {% endblock content %}
