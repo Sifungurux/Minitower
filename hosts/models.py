@@ -11,7 +11,7 @@ class hosts(models.Model):
     environment = models.CharField('Server environment', max_length=30, default='udv')
     connectiontype = models.IntegerField('Port number to connect', default=22)
     system_vendor = models.CharField('System vendor information', max_length=30, default='-')
-    system_owner = models.CharField('System vendor information', max_length=30, default='DVU')
+    system_owner = models.CharField('System owner information', max_length=30, default='DVU')
 
     def __str__(self):
         return self.hostname

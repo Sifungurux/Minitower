@@ -25,3 +25,10 @@ border-radius: 5px;
 color:#d32323; 
 height:fit-content
 }
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

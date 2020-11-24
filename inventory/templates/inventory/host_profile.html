@@ -6,55 +6,62 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'inventory/css/inventory_base.css' %}">
-<h2>{{ title }}</h2>
-<hr>
- 
-<div class="page-warpper" style="max-width: 1500px; background-color:gray; margin:auto" >
 
-    <div class="hostinfo" style="height: 10%; max-width: 300px; background-color:darkgrey">
-
-    </div>
-
-</div>
-
-
-<div class="info" style="max-width:fit-content; margin:auto">
-  <div class = "systeminfo">
-    <h3>System Info</h3>
+<div class="page-warpper" style="max-width: 1500px; background-color:rgb(255, 255, 255); margin:auto" >
+  <div class="banner" style="height: 40px; background-color:rgb(255, 255, 255)"></div>
+  <div class="titlebar" style="height: 50px; background-color:rgb(240, 239, 239); vertical-align: middle; padding: 10px;"><h3>{{ title }}</h3></div>
+  <div class="hostinfo" style="max-width: 300px; background-color:rgb(214, 214, 214)">
+    <div>
       {% for host in hosts %}
-      <div class="system">
-        <p>System: {{ host.systemtype }}</p>
-        <p>Server ejer: {{ host.system_owner }}</p>
-        <p>System type: {{ host.system_vendor }}</p>
+      <div class="system" style="text-align: left;">
+      <div>System: {{ host.systemtype }}</div>
+        <div>Supplier: {{ host.system_owner }}</div>
+        <div>Platform: {{ host.system_vendor }}</div>
       </div>
-    </div>
-  {% endfor %}
-  <div class = "serverinfo">
-      <h3>System Info</h3>
+      {% endfor %}
+      <div style="height: 10;">
+      </div>
+      <div>
         {% for host in hostHW %}
-        <div>
-          <p>OS: {{ host.os_family}} {{ host.os_version }} </p>
-        </div>
-        <div>       
-          <p>IP: {{ host.ip }}</p>
-        </div>
-      </div>
-  <div class="hardwareinfo">
-    <h3> Hardware Info </h3>
-      <div>
-          <p>Devices:<p>
-          {% for s in storage %}
-            <p style="margin-left: 20px"> Drive: {{ s.name }} Size : {{ s.size }} GB</p>
-          {% endfor %}
-      </div>
-      <div>
-          <p>Cpu cores: {{host.cores}}</p>
-      </div>
-      <div>
-          <p>Memory: {{host.ram}} MB</p>
+        <div>OS: {{ host.os_family}} {{ host.os_version }}</div>
+        <div>IP: {{ host.ip }}</div>
       </div>
     </div>
-        {% endfor %}
   </div>
 
+  <div>
+    <div >
+      <div style="height: 30px;"></div>
+      <hr>
+      <table style="width: 300px; background-color:ghostwhite"> 
+        <tr>
+          {% for s in storage %}
+            <td style="width:30%">
+              <img src="{% static "inventory/img/computer-drive-clipart-2.jpg" %}" width="50" height="50" alt="µTower"/>
+            </td>
+            <td>
+              {{ s.name }}
+            </td>
+            <td>
+            {{ s.size }} GB
+            </td>
+          {% endfor %}  
+        </tr>
+        <tr>
+          <td ><img src="{% static "inventory/img/memory.png" %}" width="50" height="50" alt="µTower"/></td>
+          <td>{{host.ram}} MB</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <img src="{% static "inventory/img/cpu.png" %}" width="50" height="50" alt="µTower"/></td>
+          <td>{{host.cores}}</td>
+          <td></td>
+        </tr>
+      </table>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

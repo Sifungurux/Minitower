@@ -27,9 +27,9 @@ td {
 hr {
   max-width: 1800px;
   margin: auto;
-  height:2px;
-  background-color: #4caf50;
-  border: 2px solid #bde6c2;
+  height:1px;
+  background-color: #6c757d;
+  border: 1px solid #e9ecef;
   border-radius: inherit;
 }
 div {

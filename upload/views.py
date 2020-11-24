@@ -122,11 +122,10 @@ def set_fw_data(f):
         csv_dict_reader = DictReader(read_obj,dialect='excel', delimiter=';')
         fw_rules = firewall.objects.all()
         for row in csv_dict_reader:
-            source_system = row['src system']        
             source = row['src']
-            dest_system = row['dest system']
             dest = row['dest']
             port = row['port']
+            protocol = row['protocol']
             ticket = row['Ticket']
             description = row['Description']
 
@@ -136,9 +135,6 @@ def set_fw_data(f):
 
             if 'Dest NAT' in row: destnat = row['dest nat']
             else: destnat = '-'
-
-            if 'Protocol' in row: protocol = row['protocol']
-            else: protocol = '-'
 
             if 'ref' in row: ref = row['ref']
             else: ref = 'unset'
