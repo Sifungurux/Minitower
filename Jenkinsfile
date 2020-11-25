@@ -3,7 +3,7 @@ pipeline {
         docker { 
             image 'docker.artifactory.ccta.dk/prsadata/skat-python'    
             registryUrl 'https://docker.artifactory.ccta.dk'
-            registryCredentialsId 'b2f24be0-9416-41cb-90c5-4d028be11c4d'
+            registryCredentialsId 'svc-artifactory'
             args '-u root:sudo'
         }
     } 
