@@ -1,4 +1,4 @@
-FROM docker.artifactory.ccta.dk/centos/python-36-centos7:lts
+FROM docker.artifactory.ccta.dk/centos/python-36-centos7
 
 # RUN yum install epel-release \
 #                 python3-pip python3-devel gcc -y
