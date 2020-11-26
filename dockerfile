@@ -1,7 +1,7 @@
-FROM docker.artifactory.ccta.dk/centos:latest
+FROM docker.artifactory.ccta.dk/centos/python-36-centos7:lts
 
-RUN yum install epel-release \
-                python3-pip python3-devel gcc -y
+# RUN yum install epel-release \
+#                 python3-pip python3-devel gcc -y
 
 WORKDIR /opt/minitower
 COPY ./unittest/requirements.txt ./
