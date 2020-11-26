@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('config.urls')),
     path('', include('home.urls')),
     path('', include('upload.urls')),
-
+    path('', include('firewall.urls')),
+    path('', include('hosts.urls'))
 
 ]

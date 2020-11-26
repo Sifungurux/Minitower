@@ -1,0 +1,77 @@
+h1 {
+    width: 100%;
+    text-align:center;
+    font-size: 30px;
+    color:white
+  }
+  h2 {
+    width: 100%;
+    text-align:center;
+  }
+  
+  table th, td {
+  text-align:left;
+  }
+  
+  th {
+    background-color:#4caf50; /* 4caf50 */
+    border-radius: 8px;
+    padding: 4px;
+    width: 200px;
+    height: auto;
+    font-size: 20px;
+    color:white
+  }
+  td {
+      background-color: white;
+  }
+  hr {
+    max-width: 1800px;
+    margin: auto;
+    height:2px;
+    background-color: #4caf50;
+    border: 2px solid #bde6c2;
+    border-radius: inherit;
+  }
+  div {
+    margin-right:10px;
+    margin-left:10px;
+  }
+  .searchbox {
+    display: flex;
+    justify-content: center;
+  }
+    
+  .container  {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .container a:hover {
+    background-color:#4caf50; 
+    padding: 4px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 8px #bde6c2;
+  }
+ 
+  .fwupload a {
+    padding: 4px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+     display: flex;
+    justify-content: center;
+  }
+  
+  /* Footer css */
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #4caf50;
+    color: white;
+    text-align: center;
+  }

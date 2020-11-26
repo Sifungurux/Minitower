@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}  
+{% block content %}
+{% load static %}
+
+<h1>{{ title }} </h1>
+<br/><br/>
+<div class="addhost">
+            <div class="form-group col-md-6">
+                <form action='.' method='POST'> {% csrf_token %}
+
+                {{ form.as_table}}
+                <input type="submit" value="Save" />
+            </form>
+        </div>
+</div>
+{% endblock content %}

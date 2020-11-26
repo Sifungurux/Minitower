@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}  
+
+{% block content %}
+{% load static %}
+<div class="header" style="height: 100; text-align:center">
+  <h1>{{ title }}</h1>
+
+</div>
+<div class="table">
+  <thead class="thead-dark">
+        <table style="margin: auto;">
+          <tr>
+          <th>Reference id</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Port</th>
+          <th style="width: 100px; text-align:center;">Protocol</th>
+          <th>Status</th>
+          <th style="width: 100px; text-align:center;">Ticket nr.</th>
+          <th>Description/Note</th>
+          </tr>
+          <tr style="height:10px"> </tr>
+        {% for fw in queryset %}
+          <tr>
+            <td>{{ fw.ref }}</td>
+            <td>{{ fw.source }}</td>
+            <td>{{ fw.dest }}</td>
+            <td>{{ fw.port }}</td>
+            <td>{{ fw.protocol }}</td>
+            <td>{{ fw.status }}</td>
+            <td>{{ fw.ticket }}</td>
+            <td>{{ fw.description }}<br>{{fw.note}}</td>
+          </tr>
+        {%endfor%}
+      </table>
+    </thead>
+  </div>   
+{% endblock content %}
