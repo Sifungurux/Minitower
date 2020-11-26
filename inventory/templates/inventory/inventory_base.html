@@ -7,50 +7,67 @@
 <div class="header" style="height: 100; text-align:center">
   <h1>{{ title }}</h1>
 
+<script>
+    $(document).ready(function(){
+        $('.hostname').click(function(){
+            var txt="";
+            $('.hostname:checked').each(function(){
+                txt+=$(this).val()+","
+            });
+            $('#hostnamevalues').val(txt);
+        });
+    });
+</script>
+
 </div>
-
-
-<div class="table">
-  <thead class="thead-dark">
-        <table style="margin: auto;">
-          <tr>
-          <th>Hostname</th>
-          <th style="width:20px"><img src="{% static "inventory/img/RDP.png" %}" alt="ssh"/></th>
-          <th>System</th>
-          <th>Server type</th>
-          <th>Version</th>
-          <th>Status</th>
-          <th >Connection</th>
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="table">
+    <thead class="thead-dark">
+          <table style="margin: auto;" id="hosttable">
+            <tr>
+            <th><input type="checkbox" value="all"></th>
+            <th>Hostname</th>
+            <th style="width:20px"><img src="{% static "inventory/img/RDP.png" %}" alt="ssh"/></th>
+            <th>System</th>
+            <th>Server type</th>
+            <th>Version</th>
+            <th>Status</th>
+            <th >Connection</th>
+            </tr>
+            <tr style="height:10px"> </tr>
+          {% for host in queryset %}
+            <tr>
+              <td><input type="checkbox" value="{{host.host}}" class="hostname" /></td>
+              <td style="vertical-align:bottom"><a href="{% url 'profile' host.host %}">{{ host.host }}</a></td>
+              {% if host.system == "Linux" %}
+              <td style="width:35px; text-align:center"><img src="{% static "inventory/img/redhat.png" %}" alt="Redhat"/></td>
+              {% elif host.system == "Windows"%}
+              <td style="width:35px; text-align:center"><img src="{% static "inventory/img/Windows.png" %}" alt="Windows"/></td>
+              {% else %}
+              <td style="width:35px; text-align:center"><img src="{% static "inventory/img/RDP.png" %}" alt="ssh"/></td>
+              {% endif %}
+              <td>{{ host.host.systemproduct  }} </td>
+              <td style="width:10px">{{ host.host.systemtype}}   </td>
+              <td>{{ host.os_version }} </td>
+              {% if host.host.server_status == "Connected" %}
+              <td class="upstatus">{{ host.host.server_status }}</td>
+              {% else %}
+              <td class="downstatus">{{ host.host.server_status }}</td>
+              {% endif %}
+              {% if host.host.connectiontype == 22 %}
+              <td class="connection">SSH</td>
+              {% elif host.host.connectiontype == 5985 %}
+              <td class="connection">KERBEROS</td>
+              {% endif %}
+          {% endfor %}
+            </tr>
+          <tr style="height:3px">
           </tr>
-          <tr style="height:10px"> </tr>
-        {% for host in queryset %}
-          <tr>
-            <td style="vertical-align:bottom"><a href="{% url 'profile' host.host %}">{{ host.host }}</a></td>
-            {% if host.system == "Linux" %}
-            <td style="width:35px; text-align:center"><img src="{% static "inventory/img/redhat.png" %}" alt="Redhat"/></td>
-            {% elif host.system == "Windows"%}
-            <td style="width:35px; text-align:center"><img src="{% static "inventory/img/Windows.png" %}" alt="Windows"/></td>
-            {% else %}
-            <td style="width:35px; text-align:center"><img src="{% static "inventory/img/RDP.png" %}" alt="ssh"/></td>
-            {% endif %}
-            <td>{{ host.host.systemproduct  }} </td>
-            <td style="width:10px">{{ host.host.systemtype}}   </td>
-            <td>{{ host.os_version }} </td>
-            {% if host.host.server_status == "Connected" %}
-            <td class="upstatus">{{ host.host.server_status }}</td>
-            {% else %}
-            <td class="downstatus">{{ host.host.server_status }}</td>
-            {% endif %}
-            {% if host.host.connectiontype == 22 %}
-            <td class="connection">SSH</td>
-            {% elif host.host.connectiontype == 5985 %}
-            <td class="connection">KERBEROS</td>
-            {% endif %}
-        {% endfor %}
-          </tr>
-        <tr style="height:3px"> </tr>
-     
-        </table>
-  </thead>
-</div>  
+
+          </table>
+    </thead>
+  </div> 
+  <div class="report" style="margin:auto"><input type="submit" id="hostnamevalues" value="Generate Report" name="hostnames"></div>
+</form>
 {% endblock content %}
