@@ -68,6 +68,14 @@ pipeline {
         }
       }
     }
+    post {
+      success {
+        office365ConnectorSend color: '#228B22', status: "SUCCESS", webhookUrl: 'https://outlook.office.com/webhook/2f1278cc-6b4a-44ae-b5b5-879d94478eb4@2e93f0ed-ff36-46d4-9ce6-e0d902050cf5/JenkinsCI/0dee296ef2124a129bf54d200b3a403a/53a3382b-078e-413b-b721-a317b57b730a'
+      }
+      failure {
+        office365ConnectorSend color: '#FF0000', status: "FAILED", webhookUrl: 'https://outlook.office.com/webhook/2f1278cc-6b4a-44ae-b5b5-879d94478eb4@2e93f0ed-ff36-46d4-9ce6-e0d902050cf5/JenkinsCI/0dee296ef2124a129bf54d200b3a403a/53a3382b-078e-413b-b721-a317b57b730a'
+      }
+    }
     post { 
         always { 
             cleanWs()
