@@ -20,7 +20,6 @@ pipeline {
     triggers {
       cron('H H(0-6) * * *')
     }
-
     stages {
       stage('Fetch jgitver and resolve software version') {
         steps {
