@@ -58,7 +58,7 @@ class Job(HourlyJob):
                 '$.ansible_facts.ansible_os_family',
                 '$.ansible_facts.ansible_distribution_version',
                 '$.ansible_facts.ansible_system',
-                '$.ansible_facts.ansible_system_vendor',
+                '$.ansible_facts.ansible_vendor',
             ]
 
         if "Windows" == system:
@@ -68,7 +68,7 @@ class Job(HourlyJob):
                 '$.ansible_facts.ansible_processor_count',
                 '$.ansible_facts.ansible_os_family',
                 '$.ansible_facts.ansible_os_name',
-                '$.ansible_facts.ansible_system_vendor',
+                '$.ansible_facts.ansible_vendor',
                 '$.ansible_facts.ansible_owner_name',
             ]
         return fact_expressions
@@ -99,9 +99,9 @@ class Job(HourlyJob):
             if '$.ansible_facts.ansible_distribution_version' == expressions:
                 print("Updating OS Version..."), Inventory.objects.filter(
                     host=host).update(os_version=match[0].value)
-            if '$.ansible_facts.ansible_system_vendor' == expressions:
+            if '$.ansible_facts.ansible_vendor' == expressions:
                 print("Updating System vendor..."), hosts.objects.filter(
-                    hostname=host).update(system_vendor=match[0].value) 
+                    hostname=host).update(vendor=match[0].value) 
             if '$.ansible_facts.ansible_system' == expressions:
                 print("Updating System Name..."), Inventory.objects.filter(
                     host=host).update(system=match[0].value)
@@ -131,12 +131,12 @@ class Job(HourlyJob):
                     host=host).update(os_family=get_name[0])
                 print("Updating OS Version..."), Inventory.objects.filter(
                     host=host).update(os_version=get_name[1])
-            if '$.ansible_facts.ansible_system_vendor' == expressions:
+            if '$.ansible_facts.ansible_vendor' == expressions:
                 print("Updating System vendor..."), hosts.objects.filter(
-                    hostname=host).update(system_vendor=match[0].value)
+                    hostname=host).update(vendor=match[0].value)
             if '$.ansible_facts.ansible_owner_name' == expressions:
                 print("Updating System owner..."), hosts.objects.filter(
-                    hostname=host).update(system_owner=match[0].value)    
+                    hostname=host).update(supplier=match[0].value)    
 
     def update_storage(self, facts_data, system, host):
         """

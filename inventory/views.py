@@ -6,6 +6,12 @@ from hosts.models import hosts
 from django.db.models import Q, Count
 import json
 
+def Mark(request):
+    if request.method=='POST':
+        print(request.method)
+        if request.POST.get('hostnamevalues'):
+            vi=request.POST.get('hostnamevalues')
+            print(vi)
 
 def is_valid_queryparam(param):
     return param != '' and param is not None

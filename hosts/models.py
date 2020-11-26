@@ -10,8 +10,8 @@ class hosts(models.Model):
     server_status = models.CharField('Status field for it Ansible can connect to server', max_length=30, default='Not Connected')
     environment = models.CharField('Server environment', max_length=30, default='udv')
     connectiontype = models.IntegerField('Port number to connect', default=22)
-    system_vendor = models.CharField('System vendor information', max_length=30, default='-')
-    system_owner = models.CharField('System owner information', max_length=30, default='DVU')
+    vendor = models.CharField('System vendor information', max_length=30, default='-')
+    supplier = models.CharField('System owner information', max_length=30, default='DVU')
 
     def __str__(self):
         return self.hostname
