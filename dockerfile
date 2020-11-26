@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM docker.artifactory.ccta.dk/centos:latest
 
 RUN yum install epel-release \
                 python3-pip python3-devel gcc -y
