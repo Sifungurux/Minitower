@@ -36,9 +36,9 @@ pipeline {
         steps {
           withCredentials([usernamePassword(credentialsId: "${env.ARTIFACTORY_CREDENTIALS_ID}", passwordVariable: 'PW', usernameVariable: 'USERNAME')]) {
               sh '''
-                  docker login -u ${USERNAME} -p ${PW} ${PROJECT_NAME}-docker-local.artifactory.ccta.dk
+                  docker login -u ${USERNAME} -p ${PW} docker.artifactory.ccta.dk/${CONTAINER_NAME}
                   export VERSION=$(${JGITVER_COMMAND})
-                  docker build -t ${PROJECT_NAME}-docker-local.artifactory.ccta.dk/${CONTAINER_NAME}:${VERSION} .
+                  docker build -t docker.artifactory.ccta.dk/${CONTAINER_NAME}:${VERSION} .
               '''
           }
         }
@@ -47,7 +47,7 @@ pipeline {
         steps {
           sh '''
               export VERSION=$(${JGITVER_COMMAND})
-              docker push ${PROJECT_NAME}-docker-local.artifactory.ccta.dk/${CONTAINER_NAME}:${VERSION}
+              docker push docker.artifactory.ccta.dk/${CONTAINER_NAME}:${VERSION}
           '''
         }
       }
@@ -58,11 +58,11 @@ pipeline {
         steps {
           withCredentials([usernamePassword(credentialsId: "${env.ARTIFACTORY_CREDENTIALS_ID}", passwordVariable: 'PW', usernameVariable: 'USERNAME')]) {
             sh '''
-              docker login -u ${USERNAME} -p ${PW} ${PROJECT_NAME}-docker-local.artifactory.ccta.dk
+              docker login -u ${USERNAME} -p ${PW} $docker.artifactory.ccta.dk/${CONTAINER_NAME}
               export VERSION=$(${JGITVER_COMMAND})
-              docker build -t ${PROJECT_NAME}-docker-local.artifactory.ccta.dk/${CONTAINER_NAME}:latest .
+              docker build -t docker.artifactory.ccta.dk/${CONTAINER_NAME}:latest .
               curl -u ${USERNAME}:${PW} -X DELETE https://artifactory.ccta.dk/${PROJECT_NAME}-docker-local/${CONTAINER_NAME}/latest
-              docker push ${PROJECT_NAME}-docker-local.artifactory.ccta.dk/${CONTAINER_NAME}:latest
+              docker push docker.artifactory.ccta.dk/${CONTAINER_NAME}:latest
             '''
           }
         }
