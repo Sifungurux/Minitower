@@ -17,3 +17,6 @@ class firewall(models.Model):
     ticket = models.CharField("Ticket nr. for fw connection", max_length = 100)
     status = models.CharField("Status for fw ",max_length = 100)
     note = models.CharField("Note", max_length = 1000)
+
+    def __str__(self):
+        return self.source + " | " + self.dest + " | " + self.port
