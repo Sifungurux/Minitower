@@ -20,8 +20,8 @@ class AddHost(forms.Form):
         widget  = forms.Textarea(
             attrs={
                 'class': 'form-control',
-                "row": 10,
-                "cols": 50
+                "row": 5,
+                "cols": 25
             }
         )
     )

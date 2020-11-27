@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'upload/css/upload_base.css' %}">
+
+<h1 style="text-align:center ;">{{ title }}</h1>
+<br>
+    <form method="post" enctype="multipart/form-data"></form>
+    {% csrf_token %}
+    <div class="table">
+        <thead class="thead-dark">
+        <table style="margin: auto; width:500px">
+            <tr>
+                <td style="width:20px"></td>
+                <td style="text-align: center;">
+                <input type="file" name="systemdata"  value="Button" class="select">      
+                <button type="submit">Upload</button></td>
+                </td>
+                <td style="width:20px"></td>
+            </tr>
+
+            <tr>
+                <td style="width:20px"></td>
+                <td style="text-align: center;">Upload status</td>
+                <td style="width:20px"></td>
+            </tr>
+            <tr>
+                <td style="width:20px"></td>
+                <td>
+                    {% if uploaded_file_url %}
+                    File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a>
+                    {% endif %}
+                </td>
+                <td style="width:20px"></td>
+            </tr>
+            
+            {% for error in msg %}
+            <tr>
+                <td></td>
+                <td><p>{{ error }}</p></td>
+                <td></td>
+            </tr>
+            {%endfor%}
+        <tr>
+            <td></td>
+            <td style="text-align: center;">
+                <a href="{% url 'home' %}">Return to home</a>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </thead>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}  
+{% block content %}
+{% load static %}
+<br><br>
+<h1>{{ title }} </h1>
+<br/><br/>
+<div class="addform">
+            <div class="form-group col-md-6">
+                <form action='.' method='POST'> {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>
+                                {{form.source.label}} : 
+                                {{form.source.as_widget}}
+                            </td>
+                            <td>
+                                {{form.sourcenat.label}} : 
+                                {{form.sourcenat.as_widget}}
+                            </td>
+                        </tr>
+                        <tr style="height: 10px;"></tr>
+                        <tr>
+                            <td>
+                                {{form.dest.label}} : 
+                                {{form.dest.as_widget}}
+                            </td>
+                            <td>
+                                {{form.destnat.label}} : 
+                                {{form.destnat.as_widget}}
+                            </td>
+                        </tr>
+                        <tr style="height: 10px;"></tr>
+                        <tr>
+                            <td>
+                                {{form.port.label}} : 
+                                {{form.port.as_widget}}
+                            </td>
+                            <td>
+                                {{form.protocol.label}} : 
+                                {{form.protocol.as_widget}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{form.ref.label}} : 
+                                {{form.ref.as_widget}}
+                            </td>
+                            <td>
+                                {{form.ticket.label}} : 
+                                {{form.ticket.as_widget}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{form.status.label}} : 
+                                {{form.status.as_widget}}
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                {{form.description.label}} : 
+                                {{form.description.as_widget}}
+                            </td>
+                            <td>
+                                {{form.note.label}} : 
+                                {{form.note.as_widget}}
+                            </td>
+                        </tr>
+                    </table>
+                <br>
+                <input type="submit" value="Save" />
+            </form>
+        </div>
+</div>
+{% endblock content %}
