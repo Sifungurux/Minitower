@@ -2,14 +2,44 @@
 {% block title %}{{ title }}{% endblock title %}  
 {% block content %}
 {% load static %}
-
+<br><br>
 <h1>{{ title }} </h1>
 <br/><br/>
-<div class="addhost">
+<div class="addform">
             <div class="form-group col-md-6">
                 <form action='.' method='POST'> {% csrf_token %}
-
-                {{ form.as_table}}
+                    <table>
+                        <tr>
+                            <td>
+                                {{form.hostname.label}} : 
+                                {{form.hostname.as_widget}}
+                            </td>
+                            <td>
+                                {{form.systemproduct.label}} : 
+                                {{form.systemproduct.as_widget}}
+                            </td>
+                        </tr>
+                        <tr style="height: 10px;"></tr>
+                        <tr>
+                            <td>
+                                {{form.system_owner.label}} : 
+                                {{form.system_owner.as_widget}}
+                            </td>
+                                <td>
+                                {{form.environment.label}} : 
+                                {{form.environment.as_widget}}
+                            </td>
+                        </tr>
+                        <tr style="height: 10px;"></tr>
+                        <tr>
+                            <td>
+                                {{form.description.label}} : 
+                                {{form.description.as_widget}}
+                            </td>
+             
+                        </tr>
+                    </table>
+                <br>
                 <input type="submit" value="Save" />
             </form>
         </div>

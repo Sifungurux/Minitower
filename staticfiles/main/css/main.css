@@ -1,5 +1,5 @@
   /* Footer css */
-footer {
+  footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -32,3 +32,10 @@ height:fit-content
     margin-right: auto;
     width: 50%;
 }
+.addform {
+  display: flex;
+  justify-content: center;
+  background-color:#f8f9fa;
+  width:40%;
+  margin:auto
+}  

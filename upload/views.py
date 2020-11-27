@@ -12,8 +12,27 @@ import shared_functions.hosts as hostname_check
 from hosts.models import hosts
 from firewall.models import firewall
 
+from .forms import UploadData
+
+
 now = datetime.now()
 timetag = now.strftime("%d%m%Y-%H%M")
+
+def get_uploadData(request, *args, **kwargs):
+    form = UploadData()
+    title = "Data upload"
+    print(*args, **kwargs)
+    if request.method == 'POST':
+        form = UploadData(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+        else:
+            print(form.errors)
+    context = {
+        "title": title,
+        "form" : form
+    }
+    return render(request, "upload/host-data-upload.html", context)
 
 def system_data_upload(request):
 
@@ -36,8 +55,8 @@ def system_data_upload(request):
             'uploaded_file_url': uploaded_file_url,
             'msg': msg
         }
-        return render(request, 'upload/simple_upload.html', context)
-    return render(request, 'upload/simple_upload.html')
+        return render(request, 'upload/host-data-upload.html', context)
+    return render(request, 'upload/host-data-upload.html')
 
 def fw_data_upload(request):
     if request.method == 'POST' and request.FILES['fwdata']:
