@@ -38,6 +38,7 @@ def system_data_upload(request):
 
     now = datetime.now()
     timetag = now.strftime("%d%m%Y-%H%M")
+    title = "System data upload"
 
     if request.method == 'POST' and request.FILES['systemdata']:
         systemdata = request.FILES['systemdata']
@@ -51,7 +52,7 @@ def system_data_upload(request):
 
         guide = "Guide to upload valid system data to the system.\n Fields define:\nHostname and a description"
         context = {
-            'title': "System data upload",
+            'title': title,
             'uploaded_file_url': uploaded_file_url,
             'msg': msg
         }
@@ -59,6 +60,8 @@ def system_data_upload(request):
     return render(request, 'upload/host-data-upload.html')
 
 def fw_data_upload(request):
+    title = "Firewall data upload"
+
     if request.method == 'POST' and request.FILES['fwdata']:
         fwdata = request.FILES['fwdata']
         fs = FileSystemStorage()
@@ -71,7 +74,7 @@ def fw_data_upload(request):
 
         guide = "Guide to upload valid fw data to the system.\n Fields define:\Source, destination, port and sysntem"
         context = {
-            'title': "Firewall data upload",
+            'title': title,
             'uploaded_file_url': uploaded_file_url,
             'msg': msg
         }
