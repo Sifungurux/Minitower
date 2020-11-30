@@ -42,11 +42,13 @@ def add_fw_create(request, *args, **kwargs):
     title = "Add firewall rule"
     print(*args, **kwargs)
     if request.method == 'POST':
-        form = AddFirewall(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-        else:
-            print(form.errors)
+        print(request.POST['validate'])
+        if "validate" == request.POST['validate'].lower():
+            form = AddFirewall(request.POST)
+            if form.is_valid():
+                print(form.cleaned_data)
+            else:
+                print(form.errors)
     context = {
         "title": title,
         "form" : form

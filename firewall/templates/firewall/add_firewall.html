@@ -3,74 +3,76 @@
 {% block content %}
 {% load static %}
 <br><br>
-<h1>{{ title }} </h1>
+<h1 style="text-align: center;">{{ title }}</h1>
 <br/><br/>
 <div class="addform">
-            <div class="form-group col-md-6">
+    <div class="table">
+        <thead class="thead-dark">
                 <form action='.' method='POST'> {% csrf_token %}
                     <table>
-                        <tr>
-                            <td>
-                                {{form.source.label}} : 
-                                {{form.source.as_widget}}
-                            </td>
-                            <td>
-                                {{form.sourcenat.label}} : 
-                                {{form.sourcenat.as_widget}}
-                            </td>
+                        <tr style="width: 100%;">
+                            <th>{{form.source.label}}</th>
+                            <th>{{form.sourcenat.label}}</th>
+                            <th>{{form.dest.label}}</th>
+                            <th>{{form.destnat.label}} </th>
                         </tr>
+                        <tr>
+                            <td>{{form.source.as_widget}}</td>
+                            <td>{{form.sourcenat.as_widget}}</td>
+                            <td>{{form.dest.as_widget}}</td>
+                            <td>{{form.destnat.as_widget}}</td>
+                        </tr>
+
                         <tr style="height: 10px;"></tr>
+                    </table>
+                    <table>
                         <tr>
-                            <td>
-                                {{form.dest.label}} : 
-                                {{form.dest.as_widget}}
-                            </td>
-                            <td>
-                                {{form.destnat.label}} : 
-                                {{form.destnat.as_widget}}
-                            </td>
+                            <th>{{form.port.label}}</th>
+                            <th style="width:125px">{{form.protocol.label}}</th>
+                            <th>{{form.ref.label}}</th>
+                            <th>{{form.ticket.label}}</th>
+                            <th>{{form.status.label}}</th>
                         </tr>
+
                         <tr style="height: 10px;"></tr>
+
                         <tr>
-                            <td>
-                                {{form.port.label}} : 
-                                {{form.port.as_widget}}
-                            </td>
-                            <td>
-                                {{form.protocol.label}} : 
-                                {{form.protocol.as_widget}}
-                            </td>
+                            <td>{{form.port.as_widget}}</td>
+                            <td >{{form.protocol.as_widget}}</td>
+                            <td>{{form.ref.as_widget}}</td>
+                            <td>{{form.ticket.as_widget}}</td>
+                            <td>{{form.status.as_widget}}</td> 
+                        </tr>
+                    </table>
+                    <table>
+                        <tr style="width: 100%;">
+                            <th>{{form.note.label}}</th>
+                            <th>{{form.description.label}}</th>
                         </tr>
                         <tr>
-                            <td>
-                                {{form.ref.label}} : 
-                                {{form.ref.as_widget}}
-                            </td>
-                            <td>
-                                {{form.ticket.label}} : 
-                                {{form.ticket.as_widget}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{form.status.label}} : 
-                                {{form.status.as_widget}}
-                            </td> 
-                        </tr>
-                        <tr>
-                            <td>
-                                {{form.description.label}} : 
-                                {{form.description.as_widget}}
-                            </td>
-                            <td>
-                                {{form.note.label}} : 
-                                {{form.note.as_widget}}
-                            </td>
+                            <td>{{form.note.as_widget}}</td>
+                            <td>{{form.description.as_widget}}</td>
                         </tr>
                     </table>
                 <br>
-                <input type="submit" value="Save" />
+                <table>
+                    <tr>
+                        <td>
+                            {% if form.sourcenat.value == '' %}
+                                {% if form.sourcenat.value == ''%}
+                                <b>{{ form.source.value}}  from {{ form.sourcenat.value}} via {{form.destnat.value}}:{{ form.port.value}} to {{form.dest.value}}</b>
+                                {% endif %}
+                            {% else %}
+                                <b>{{ form.source.value}} to {{form.dest.value}}:{{form.port.value}}</b>
+                            {%endif%}
+                            
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" name=validate value="Validate"/>
             </form>
-        </div>
+        </thead>
+    </div>
+    
 </div>
 {% endblock content %}
