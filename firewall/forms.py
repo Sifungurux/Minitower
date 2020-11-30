@@ -83,9 +83,7 @@ class AddFirewall(forms.Form):
         label="Description.",
         widget=forms.Textarea(
             attrs={
-                'class': 'form-control',
-                "row":10,
-                "cols": 20
+                'class': 'form-control'
                 }
             )
         )
@@ -93,9 +91,7 @@ class AddFirewall(forms.Form):
         label="Note.",
         widget=forms.Textarea(
             attrs={
-                'class': 'form-control',
-                "row":10,
-                "cols": 20
+                'class': 'form-control'
                 }
             )
         )

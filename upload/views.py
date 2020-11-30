@@ -161,10 +161,10 @@ def set_fw_data(f):
             if 'ref' in row: ref = row['ref']
             else: ref = 'unset'
 
-            if 'status' in row: system_vendor = row['staus']
+            if 'status' in row: status = row['status']
             else: status = 'unclear'
 
-            if 'notat' in row:  system_owner = row['note']
+            if 'notat' in row: note = row['note']
             else: note = ''
             
 
