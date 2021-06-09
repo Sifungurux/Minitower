@@ -4,7 +4,7 @@ FROM docker.artifactory.ccta.dk/centos/python-36-centos7
 #                 python3-pip python3-devel gcc -y
 
 # WORKDIR /opt/minitower
-# COPY ./unittest/requirements.txt ./
+# COPY ./test/requirements.txt ./
 # RUN pip3 install -r requirements.txt
 
 # RUN django-admin startproject minitower /opt/minitower/ && \

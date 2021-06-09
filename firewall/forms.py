@@ -1,4 +1,14 @@
 from django import forms
+
+from .models import firewall
+from bootstrap_modal_forms.forms import BSModalModelForm
+
+class AddModalFirewall(BSModalModelForm):
+    class Meta:
+        model = firewall
+        fields = ['source', 'sourcenat','dest', 'destnat', 'port', 'protocol', 'ref','ticket', 'description']
+
+
 PROC =[
     (u'TCP', u'TCP'),
     (u'UDP', u'UDP'),

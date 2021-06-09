@@ -1,3 +1,4 @@
+from firewall.models import firewall
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Inventory
@@ -24,6 +25,7 @@ def profile(request, hostname):
 
     hostHW = Inventory.objects.raw('SELECT * FROM inventory_inventory WHERE host_id = %s', [hostname])
     for s in hostHW:
+        ip = s.ip
         if s.storage is not '':
             json_obj = s.storage
             storage_qs = json.loads(json_obj)
@@ -33,12 +35,15 @@ def profile(request, hostname):
                 "name": "no_devices",
                 "size": "-"
             })
-
+    fwqs = firewall.objects.all()
+    fwqs = fwqs.filter(Q(source__iexact=ip) | Q(dest__iexact=ip))
+    print(fwqs)
     context = {
         'title': hostname,
         'hosts': hostinfo,
         'hostHW': hostHW,
         'storage': storage_qs['devices'],
+        'fwset':fwqs
     }
  
     return render(request, 'inventory/host_profile.html', context )

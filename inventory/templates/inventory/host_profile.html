@@ -1,65 +1,101 @@
 {% extends 'base.html' %}
-
 {% block title %}{{ host }}{% endblock title %}  
-
 {% block content %}
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'inventory/css/inventory_base.css' %}">
-
-<div class="page-warpper" style="max-width: 1500px; background-color:rgb(255, 255, 255); margin:auto" >
-  <div class="banner" style="height: 40px; background-color:rgb(255, 255, 255)"></div>
-  <div class="titlebar" style="height: 50px; background-color:rgb(240, 239, 239); vertical-align: middle; padding: 10px;"><h3>{{ title }}</h3></div>
-  <div class="hostinfo" style="max-width: 300px; background-color:rgb(214, 214, 214)">
-    <div>
-      {% for host in hosts %}
-      <div class="system" style="text-align: left;">
-      <div>System: {{ host.systemtype }}</div>
-        <div>Supplier: {{ host.supplier }}</div>
-        <div>Platform: {{ host.vendor }}</div>
-      </div>
-      {% endfor %}
-      <div style="height: 10;">
-      </div>
-      <div>
-        {% for host in hostHW %}
-        <div>OS: {{ host.os_family}} {{ host.os_version }}</div>
-        <div>IP: {{ host.ip }}</div>
-      </div>
-    </div>
+<div class="page-warpper">
+  <div class="banner" style="height: 40px; background-color:rgb(255, 255, 255); margin-left:20px"></div>
+  
+  <div class="titlebar">
+    <h3>{{ title }}</h3>
   </div>
 
-  <div>
+  <table class= hostinfo>
+    <tr>
+      <td class="hostsupplier">
+            {% for host in hosts %}
+            <div>
+            <div>System: {{ host.systemtype }}</div>
+              <div>Supplier: {{ host.supplier }}</div>
+              <div>Platform: {{ host.vendor }}</div>
+            </div>
+            {% endfor %}
+            <div style="height: 10;">
+            </div>
+            <div>
+              {% for host in hostHW %}
+              <div>OS: {{ host.os_family}} {{ host.os_version }}</div>
+              <div>IP: {{ host.ip }}</div>
+            </div>
+    </td>
+    <td>
+      <div style="background-color: aqua;">
+      </div>
+    </td>
+ 
+    </tr>
+  </table>
+  <div style="margin-left:20px">
     <div >
       <div style="height: 30px;"></div>
       <hr>
-      <table style="width: 300px; background-color:ghostwhite"> 
+      <table style="width: 500px; background-color:rgb(255, 255, 255);">
+        <tr><td><h6>Hardware</h6><br></td><td></td></tr>
         <tr>
+          <td style="width:75px;">
+          <img src="{% static "inventory/img/computer-drive-clipart-2.jpg" %}" width="50" height="50" alt="µTower"/>
+          </td>
           {% for s in storage %}
-            <td style="width:30%">
-              <img src="{% static "inventory/img/computer-drive-clipart-2.jpg" %}" width="50" height="50" alt="µTower"/>
-            </td>
-            <td>
-              {{ s.name }}
-            </td>
-            <td>
-            {{ s.size }} GB
-            </td>
+          <td>
+              {{ s.name }} : {{ s.size }} GB
+           </td>
           {% endfor %}  
         </tr>
         <tr>
-          <td ><img src="{% static "inventory/img/memory.png" %}" width="50" height="50" alt="µTower"/></td>
+          <td><img src="{% static "inventory/img/memory.png" %}" width="50" height="50" alt="µTower"/></td>
           <td>{{host.ram}} MB</td>
-          <td></td>
+
         </tr>
         <tr>
           <td>
             <img src="{% static "inventory/img/cpu.png" %}" width="50" height="50" alt="µTower"/></td>
           <td>{{host.cores}}</td>
-          <td></td>
         </tr>
       </table>
-        {% endfor %}
+      <br><br>
+      {% endfor %}
+      <div class="table">
+        <h6>Firewall connetions</h6>
+        <thead class="thead-dark">
+              <table>
+                <tr>
+                <th>Fw id</th>
+                <th>Reference id</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Port</th>
+                <th style="width: 100px; text-align:center;">Protocol</th>
+                <th>Status</th>
+                <th style="width: 100px; text-align:center;">Ticket nr.</th>
+                <th>Description/Note</th>
+                </tr>
+                <tr style="height:10px"> </tr>
+              {% for fw in fwset %}
+                <tr>
+                  <td style="text-align: center;"><a href="{% url 'get_fwrule' fw.id %}">{{ fw.id }}</a></td>
+                  <td>{{ fw.ref }}</td>
+                  <td>{{ fw.source }}</td>
+                  <td>{{ fw.dest }}</td>
+                  <td>{{ fw.port }}</td>
+                  <td>{{ fw.protocol }}</td>
+                  <td>{{ fw.status }}</td>
+                  <td>{{ fw.ticket }}</td>
+                  <td>{{ fw.description }}<br>{{fw.note}}</td>
+                </tr>
+              {%endfor%}
+            </table>
+          </thead>
+        </div> 
       </div>
     </div>
   </div>
