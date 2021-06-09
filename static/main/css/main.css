@@ -40,4 +40,32 @@ height:fit-content
 }
 .addform th {
   background-color:#f8f9fa;
-}  
+} 
+.modal-content {
+  margin: 2px auto;
+  z-index: 1100 !important;
+  position: absolute;
+  background-color:#f8f9fa;
+  border-radius:20px;
+}
+.modal-body {
+background-color:white;
+font-family: Helvetica, sans-serif;
+}
+
+.fwrule {
+  margin:auto;
+  max-width:80%
+}
+.fwview {
+  margin:auto;
+  width:100%;
+  margin-left:20;
+}
+.fwview td{
+  width:20%;
+}
+.fwdata {
+  background-color:#f8f9fa;
+  border-radius:3px;
+}

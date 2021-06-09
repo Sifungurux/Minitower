@@ -9,13 +9,19 @@
      </title>
      <link href="{% static "main/css/bootstrap.css" %}" rel="stylesheet" type="text/css">
      <link href="{% static "main/css/main.css" %}" rel="stylesheet" type="text/css">
-     <script src="{% static "main/js/jquery-3.5.1.min.js" %}"></script>
-     <script src="{% static "main/js/bootstrap.bundle.js" %}"></script>
+     <link href="{% static "main/css/jquery.modal.min.css" %}" rel="stylesheet" type="text/css">
+
+
 
 
      <meta name="docsearch:language" content="en">
    </head>
    <body>
+    <script src="{% static "main/js/jquery-3-5-1.js" %}"></script>
+    <script src="{% static "main/js/bootstrap.js" %}"></script>
+    <script src="{% static "main/js/jquery.bootstrap.modal.forms.js" %}"></script>
+
+    
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
       <img src="{% static "home/img/tower.jpg" %}" width="30" height="30" alt="µTower"/>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,5 +77,6 @@
         </footer>
       </div>
     </div>
+
    </body>
  </html>

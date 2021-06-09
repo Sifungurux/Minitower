@@ -65,14 +65,47 @@
                             {% else %}
                                 <b>{{ form.source.value}} to {{form.dest.value}}:{{form.port.value}}</b>
                             {%endif%}
-                            
                         </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>Src</th>
+                        <th></th>
+                        <th>By</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Via</th>
+                        <th></th>
+                        <th>Dest</th>
+                    </tr>
+                    <tr>
+                        <td>{{ form.source.value}}</td>
+                        <td><img src="{% static "firewall/img/right-arrow.jpg" %}" alt="arrow" width="50" height="50"/></td>
+                        <td>{{ form.sourcenat.value}}</td>
+                        <td><img src="{% static "firewall/img/right-arrow.jpg" %}" alt="arrow" width="50" height="50"/></td>
+                        <td><img src="{% static "firewall/img/cloud.png" %}" alt="Cloud" width="50" height="50"/></td>
+                        <td><img src="{% static "firewall/img/right-arrow.jpg" %}" alt="arrow" width="50" height="50"/></td>
+                        <td>{{ form.destnat.value}}</td>
+                        <td><img src="{% static "firewall/img/right-arrow.jpg" %}" alt="arrow" width="50" height="50"/></td>
+                        <td>{{ form.dest.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.source.label}}</td>
+                        <td>From</td>
+                        <td>{{ form.sourcenat.label}}</td>
+                        <td>From</td>
+                        <td>Cloud</td>
+                        <td>To</td>
+                        <td>{{ form.destnat.label}}</td>
+                        <td>To</td>
+                        <td>{{ form.dest.label}}</td>
                     </tr>
                 </table>
                 <input type="submit" name=validate value="Validate"/>
             </form>
         </thead>
     </div>
-    
 </div>
 {% endblock content %}
