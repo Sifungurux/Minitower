@@ -6,3 +6,4 @@ django-environ
 pytest
 pytest-django
 pytest-cov
+django-bootstrap-modal-forms
