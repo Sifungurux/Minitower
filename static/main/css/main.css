@@ -48,24 +48,15 @@ height:fit-content
   background-color:#f8f9fa;
   border-radius:20px;
 }
+  
 .modal-body {
-background-color:white;
-font-family: Helvetica, sans-serif;
-}
+  background-color:white;
+  font-family: Helvetica, sans-serif;
+  background-color:#78bd78
+  }
+  
+  .form-group {
+    color:white;
+    text-align:left;
+  }
 
-.fwrule {
-  margin:auto;
-  max-width:80%
-}
-.fwview {
-  margin:auto;
-  width:100%;
-  margin-left:20;
-}
-.fwview td{
-  width:20%;
-}
-.fwdata {
-  background-color:#f8f9fa;
-  border-radius:3px;
-}

@@ -65,6 +65,23 @@ h1 {
     justify-content: center;
   }
   
+  .fwrule {
+    margin:auto;
+    max-width:80%
+  }
+  .fwview {
+    margin:auto;
+    width:100%;
+    margin-left:20;
+  }
+  .fwview td{
+    width:20%;
+  }
+  .fwdata {
+    background-color:#f8f9fa;
+    border-radius:3px;
+  }
+  
   /* Footer css */
   footer {
     position: fixed;
@@ -75,3 +92,5 @@ h1 {
     color: white;
     text-align: center;
   }
+
+  

@@ -41,12 +41,22 @@ height:fit-content
 .addform th {
   background-color:#f8f9fa;
 } 
-.modal-backdrop {
-  display: none;
-  z-index: 1040 !important;
-}
-
 .modal-content {
   margin: 2px auto;
   z-index: 1100 !important;
+  position: absolute;
+  background-color:#f8f9fa;
+  border-radius:20px;
 }
+  
+.modal-body {
+  background-color:white;
+  font-family: Helvetica, sans-serif;
+  background-color:#78bd78
+  }
+  
+  .form-group {
+    color:white;
+    text-align:left;
+  }
+
