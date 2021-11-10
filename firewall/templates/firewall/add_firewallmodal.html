@@ -9,15 +9,22 @@
     </div>
   
     <div class="modal-body">
-      {% for field in form %}
+      <table class="modal-content-form">
         <div class="form-group{% if field.errors %} invalid{% endif %}">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-          {% for error in field.errors %}
-            <p class="help-block">{{ error }}</p>
+          {% for field in form %}
+            <tr>
+              <td><label for="{{ field.id_for_label }}">{{ field.label }}</label></td>
+              <td>{{ field }}</td> 
+            </tr>
+            <tr style="width: 10px;"></tr>
+            <tr>
+              {% for error in field.errors %}
+                <p class="help-block">{{ error }}</p>
+              {% endfor %}
+            </tr>
           {% endfor %}
         </div>
-      {% endfor %}
+      </table>
     </div>
   
     <div class="modal-footer">
