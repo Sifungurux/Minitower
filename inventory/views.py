@@ -26,7 +26,7 @@ def profile(request, hostname):
     hostHW = Inventory.objects.raw('SELECT * FROM inventory_inventory WHERE host_id = %s', [hostname])
     for s in hostHW:
         ip = s.ip
-        if s.storage is not '':
+        if s.storage != '':
             json_obj = s.storage
             storage_qs = json.loads(json_obj)
         else:

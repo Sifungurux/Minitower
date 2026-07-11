@@ -6,8 +6,8 @@ import sys, getopt
 def file_diff(fil1, fil2):
   print("-----------------------------------")
   print("Comparing files")
-  print(" > " + filenavn1)
-  print(" < " + filenavn2)
+  print(" > " + fil1)
+  print(" < " + fil2)
   print("> = remote\n< = preferred")
   print("-----------------------------------")
   file1 = open(fil1).readlines()

@@ -14,12 +14,16 @@ class Job(HourlyJob):
                 hostname = str(host).split('.')
                 namespace = [(hostname[0][i:i+n]) for i in range(0, len(hostname[0]), n)]
                 # executing empty sample job
-                Product_description = navnstdproduct.objects.filter(product=str(namespace[0])).values('Product_description')
-                role_description = navnstdrole.objects.filter(role=str(namespace[1])).values('role_description')
-                env_description = navnstdenv.objects.filter(env=str(namespace[2])).values('env_description')
+                product_row = navnstdproduct.objects.filter(product=str(namespace[0])).values('Product_description').first()
+                role_row = navnstdrole.objects.filter(role=str(namespace[1])).values('role_description').first()
+                env_row = navnstdenv.objects.filter(env=str(namespace[2])).values('env_description').first()
 
-                hosts.objects.filter(hostname=host).update(systemproduct=Product_description)                    
-                hosts.objects.filter(hostname=host).update(systemtype=role_description)                    
-                hosts.objects.filter(hostname=host).update(environment=env_description)                    
+                Product_description = product_row['Product_description'] if product_row else None
+                role_description = role_row['role_description'] if role_row else None
+                env_description = env_row['env_description'] if env_row else None
+
+                hosts.objects.filter(hostname=host).update(systemproduct=Product_description)
+                hosts.objects.filter(hostname=host).update(systemtype=role_description)
+                hosts.objects.filter(hostname=host).update(environment=env_description)
         except IntegrityError:
             print(f"Host name - {hostname[0]} - does not follow naming conventions")
