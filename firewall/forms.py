@@ -6,7 +6,18 @@ from bootstrap_modal_forms.forms import BSModalModelForm
 class AddModalFirewall(BSModalModelForm):
     class Meta:
         model = firewall
-        fields = ['source', 'sourcenat','dest', 'destnat', 'port', 'protocol', 'ref','ticket', 'description']
+        fields = ['source', 'sourcenat', 'dest', 'destnat', 'port', 'protocol', 'ref', 'ticket', 'description']
+        widgets = {
+            'source': forms.TextInput(attrs={'class': 'form-control'}),
+            'sourcenat': forms.TextInput(attrs={'class': 'form-control'}),
+            'dest': forms.TextInput(attrs={'class': 'form-control'}),
+            'destnat': forms.TextInput(attrs={'class': 'form-control'}),
+            'port': forms.TextInput(attrs={'class': 'form-control'}),
+            'protocol': forms.TextInput(attrs={'class': 'form-control'}),
+            'ref': forms.TextInput(attrs={'class': 'form-control'}),
+            'ticket': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
 
 PROC =[
