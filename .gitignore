@@ -145,4 +145,4 @@ config/jobs/ansible/generated/*
 !config/jobs/ansible/generated/.gitkeep
 
 /*/migrations/0*
-data/
+data/.worktrees/
