@@ -54,8 +54,7 @@ def filter(request):
             Q(dest__icontains=fw_query)                         |
             Q(destnat__icontains=fw_query)                      |
             Q(port__icontains=fw_query)                         |
-            Q(oldfwid__icontains=fw_query)                      |
-            Q(fwid__icontains=fw_query)                         |
+            Q(ref__icontains=fw_query)                          |
             Q(ticket__icontains=fw_query)                       |
             Q(status__icontains=fw_query)                       
         ).distinct()

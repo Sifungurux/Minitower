@@ -38,6 +38,8 @@ ALLOWED_HOSTS = ['infappudv01.ccta.dk','127.0.0.1']
 
 # Application definition
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 INSTALLED_APPS = [
     'config.apps.ConfigConfig',
     'hosts.apps.HostsConfig',
@@ -148,8 +150,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Firewall rule{% endblock title %}
+
+{% block content %}
+<div class="header" style="height: 100; text-align:center">
+  <h1>Firewall rule</h1>
+
+  <div class="table">
+    <table style="margin: auto;">
+      <tr>
+        <th>Fw id</th>
+        <th>Reference id</th>
+        <th>Source</th>
+        <th>Source NAT</th>
+        <th>Destination</th>
+        <th>Destination NAT</th>
+        <th>Port</th>
+        <th>Protocol</th>
+        <th>Status</th>
+        <th>Ticket nr.</th>
+        <th>Description/Note</th>
+      </tr>
+      {% for fw in fwset %}
+      <tr>
+        <td style="text-align: center;">{{ fw.id }}</td>
+        <td>{{ fw.ref }}</td>
+        <td>{{ fw.source }}</td>
+        <td>{{ fw.sourcenat }}</td>
+        <td>{{ fw.dest }}</td>
+        <td>{{ fw.destnat }}</td>
+        <td>{{ fw.port }}</td>
+        <td>{{ fw.protocol }}</td>
+        <td>{{ fw.status }}</td>
+        <td>{{ fw.ticket }}</td>
+        <td>{{ fw.description }}<br>{{ fw.note }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock content %}

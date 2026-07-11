@@ -109,24 +109,24 @@ def set_system_data(f):
                     if 'connectiontype' in row: connectiontype = row['connectiontype']
                     else: connectiontype = 22
 
-                    if 'system_owner' in row: system_vendor = row['system_vendor']
+                    if 'system_vendor' in row: system_vendor = row['system_vendor']
                     else: system_vendor = '-'
 
                     if 'system_owner' in row:  system_owner = row['system_owner']
                     else: system_owner = ''
-                    
+
                     try:
                         hosts.objects.create(
-                            hostname = hostname, 
-                            description = description, 
-                            systemproduct = systemproduct, 
-                            systemtype = systemtype, 
+                            hostname = hostname,
+                            description = description,
+                            systemproduct = systemproduct,
+                            systemtype = systemtype,
                             server_status = server_status,
                             environment = environment,
                             connectiontype = connectiontype,
-                            system_vendor = system_vendor,
-                            system_owner = system_owner
-                        )  
+                            vendor = system_vendor,
+                            supplier = system_owner
+                        )
                     except IntegrityError :
                         print(f"Server with hostname: {row['hostname']} allready exist" )
                         error_list.append(f"Server with hostname: {row['hostname']} allready exist" )
@@ -186,29 +186,27 @@ def set_fw_data(f):
                 except IntegrityError :
                     print(f"FW rule allready exist" )
                     error_list.append(f"Firewall rule: {source} allready exist" )
-            if ref is not 'unset':
-                for id_nr in fw_rules: 
-                    fw_entry = firewall.objects.get(id=id_nr)
-                    if fw_entry.source == row['src'] and fw_entry.dest == row['dest'] and fw_entry.port == row['port'] and ref == row['ref']:
-                        print(f"FW rule {source} -> {dest}:{port} with {ref} allready exist" )
-                        continue
-                    else:
-                        try:
-                            firewall.objects.create(
-                            source = source, 
-                            dest = dest, 
-                            port = port, 
-                            ticket = ticket, 
-                            description = description,
-                            sourcenat = sourcenat,
-                            destnat = destnat,
-                            protocol = protocol,
-                            ref = ref,
-                            status = status,
-                            note = note
-                            )  
-                        except IntegrityError:
-                            error_list.append(IntegrityError)
+            if ref != 'unset':
+                duplicate = fw_rules.filter(source=source, dest=dest, port=port, ref=ref).exists()
+                if duplicate:
+                    print(f"FW rule {source} -> {dest}:{port} with {ref} allready exist" )
+                else:
+                    try:
+                        firewall.objects.create(
+                        source = source,
+                        dest = dest,
+                        port = port,
+                        ticket = ticket,
+                        description = description,
+                        sourcenat = sourcenat,
+                        destnat = destnat,
+                        protocol = protocol,
+                        ref = ref,
+                        status = status,
+                        note = note
+                        )
+                    except IntegrityError:
+                        error_list.append(f"Firewall rule: {source} allready exist")
 
     if len(error_list) == 0:
         error_list.append("Not errors incounted")
