@@ -1,0 +1,22 @@
+{% load static %}
+<aside class="sidebar">
+  <a class="sidebar__brand" href="{% url 'home' %}">
+    <img src="{% static 'home/img/tower.jpg' %}" width="24" height="24" alt="Minitower">
+    <span>Minitower</span>
+  </a>
+  <nav class="sidebar__nav">
+    {% with url_name=request.resolver_match.url_name %}
+    <a class="sidebar__link{% if url_name == 'home' %} sidebar__link--active{% endif %}" href="{% url 'home' %}">Home</a>
+
+    <div class="sidebar__section">Hosts</div>
+    <a class="sidebar__link{% if url_name == 'index' or url_name == 'profile' %} sidebar__link--active{% endif %}" href="{% url 'index' %}">Host list</a>
+    <a class="sidebar__link{% if url_name == 'add_host_create' %} sidebar__link--active{% endif %}" href="{% url 'add_host_create' %}">Add host</a>
+    <a class="sidebar__link{% if url_name == 'hostdata_upload' %} sidebar__link--active{% endif %}" href="{% url 'hostdata_upload' %}">Upload hostfile</a>
+
+    <div class="sidebar__section">Firewalls</div>
+    <a class="sidebar__link{% if url_name == 'get_firewall_list' or url_name == 'get_fwrule' %} sidebar__link--active{% endif %}" href="{% url 'get_firewall_list' %}">Firewall rules</a>
+    <a class="sidebar__link{% if url_name == 'add_fw_create' %} sidebar__link--active{% endif %}" href="{% url 'add_fw_create' %}">Add firewall rule</a>
+    <a class="sidebar__link{% if url_name == 'fwdata_upload' %} sidebar__link--active{% endif %}" href="{% url 'fwdata_upload' %}">Upload firewall list</a>
+    {% endwith %}
+  </nav>
+</aside>
