@@ -1,35 +1,22 @@
 <form method="post" action="">
-    {% csrf_token %}
-  
-   <div class="modal-header">
-      <h5 class="modal-title">Create Firewall rule</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  
-    <div class="modal-body">
-      <table class="modal-content-form">
-        <div class="form-group{% if field.errors %} invalid{% endif %}">
-          {% for field in form %}
-            <tr>
-              <td><label for="{{ field.id_for_label }}">{{ field.label }}</label></td>
-              <td>{{ field }}</td> 
-            </tr>
-            <tr style="width: 10px;"></tr>
-            <tr>
-              {% for error in field.errors %}
-                <p class="help-block">{{ error }}</p>
-              {% endfor %}
-            </tr>
-          {% endfor %}
-        </div>
-      </table>
-    </div>
-  
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-primary">Create</button>
-    </div>
-  
-  </form>
+  {% csrf_token %}
+  <div class="modal-header">
+    <h5 class="modal-title">Create Firewall rule</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    {% include 'partials/form_field.html' with field=form.source %}
+    {% include 'partials/form_field.html' with field=form.sourcenat %}
+    {% include 'partials/form_field.html' with field=form.dest %}
+    {% include 'partials/form_field.html' with field=form.destnat %}
+    {% include 'partials/form_field.html' with field=form.port %}
+    {% include 'partials/form_field.html' with field=form.protocol %}
+    {% include 'partials/form_field.html' with field=form.ref %}
+    {% include 'partials/form_field.html' with field=form.ticket %}
+    {% include 'partials/form_field.html' with field=form.description %}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </div>
+</form>

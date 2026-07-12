@@ -1,0 +1,14 @@
+<header class="topbar">
+  <h1 class="topbar__title">{{ title|default:"Minitower" }}</h1>
+  {% with url_name=request.resolver_match.url_name %}
+    {% if url_name == 'index' %}
+    <form class="topbar__search" method="get" action="{% url 'index' %}">
+      <input type="search" name="host_search" class="form-control form-control-sm" placeholder="Search hosts" value="{{ request.GET.host_search }}">
+    </form>
+    {% elif url_name == 'get_firewall_list' %}
+    <form class="topbar__search" method="get" action="{% url 'get_firewall_list' %}">
+      <input type="search" name="fw_search" class="form-control form-control-sm" placeholder="Search firewall rules" value="{{ request.GET.fw_search }}">
+    </form>
+    {% endif %}
+  {% endwith %}
+</header>

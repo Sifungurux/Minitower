@@ -1,16 +1,7 @@
 {% extends 'base.html' %}
-
-{% block title %}{{ title }}{% endblock title %}  
-
 {% block content %}
-
-{% load static %}
-
-<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
-<div style="height: 20px;"></div>
-<H1>MINITOWER</H1>
-<H2>HOME OF EVERYTHING</H2>
-<div style="height: 20px;"></div>
-<img src="{% static "home/img/tower.jpg" %}" alt="µTower" width="200" height="750" class="center"/>
-
+<div class="card" style="text-align:center">
+  <h2 style="margin-bottom:4px">Minitower</h2>
+  <p style="color:var(--color-text-muted)">Home of everything.</p>
+</div>
 {% endblock content %}

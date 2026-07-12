@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Firewall rule{% endblock title %}
-
 {% block content %}
-<div class="header" style="height: 100; text-align:center">
-  <h1>Firewall rule</h1>
-
-  <div class="table">
-    <table style="margin: auto;">
+<div class="card">
+  <table class="data-table">
+    <thead>
       <tr>
         <th>Fw id</th>
         <th>Reference id</th>
@@ -21,9 +17,11 @@
         <th>Ticket nr.</th>
         <th>Description/Note</th>
       </tr>
+    </thead>
+    <tbody>
       {% for fw in fwset %}
       <tr>
-        <td style="text-align: center;">{{ fw.id }}</td>
+        <td>{{ fw.id }}</td>
         <td>{{ fw.ref }}</td>
         <td>{{ fw.source }}</td>
         <td>{{ fw.sourcenat }}</td>
@@ -35,8 +33,10 @@
         <td>{{ fw.ticket }}</td>
         <td>{{ fw.description }}<br>{{ fw.note }}</td>
       </tr>
+      {% empty %}
+      <tr><td colspan="11" class="data-table__empty">Rule not found.</td></tr>
       {% endfor %}
-    </table>
-  </div>
+    </tbody>
+  </table>
 </div>
 {% endblock content %}

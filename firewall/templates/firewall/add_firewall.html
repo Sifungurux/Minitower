@@ -1,111 +1,41 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }}{% endblock title %}  
 {% block content %}
-{% load static %}
-<br><br>
-<h1 style="text-align: center;">{{ title }}</h1>
-<br/><br/>
-<div class="addform">
-    <div class="table">
-        <thead class="thead-dark">
-                <form action='.' method='POST'> {% csrf_token %}
-                    <table>
-                        <tr style="width: 100%;">
-                            <th>{{form.source.label}}</th>
-                            <th>{{form.sourcenat.label}}</th>
-                            <th>{{form.dest.label}}</th>
-                            <th>{{form.destnat.label}} </th>
-                        </tr>
-                        <tr>
-                            <td>{{form.source.as_widget}}</td>
-                            <td>{{form.sourcenat.as_widget}}</td>
-                            <td>{{form.dest.as_widget}}</td>
-                            <td>{{form.destnat.as_widget}}</td>
-                        </tr>
-
-                        <tr style="height: 10px;"></tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <th>{{form.port.label}}</th>
-                            <th style="width:125px">{{form.protocol.label}}</th>
-                            <th>{{form.ref.label}}</th>
-                            <th>{{form.ticket.label}}</th>
-                            <th>{{form.status.label}}</th>
-                        </tr>
-
-                        <tr style="height: 10px;"></tr>
-
-                        <tr>
-                            <td>{{form.port.as_widget}}</td>
-                            <td >{{form.protocol.as_widget}}</td>
-                            <td>{{form.ref.as_widget}}</td>
-                            <td>{{form.ticket.as_widget}}</td>
-                            <td>{{form.status.as_widget}}</td> 
-                        </tr>
-                    </table>
-                    <table>
-                        <tr style="width: 100%;">
-                            <th>{{form.note.label}}</th>
-                            <th>{{form.description.label}}</th>
-                        </tr>
-                        <tr>
-                            <td>{{form.note.as_widget}}</td>
-                            <td>{{form.description.as_widget}}</td>
-                        </tr>
-                    </table>
-                <br>
-                <table>
-                    <tr>
-                        <td>
-                            {% if form.sourcenat.value == '' %}
-                                {% if form.sourcenat.value == ''%}
-                                <b>{{ form.source.value}}  from {{ form.sourcenat.value}} via {{form.destnat.value}}:{{ form.port.value}} to {{form.dest.value}}</b>
-                                {% endif %}
-                            {% else %}
-                                <b>{{ form.source.value}} to {{form.dest.value}}:{{form.port.value}}</b>
-                            {%endif%}
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <th>Src</th>
-                        <th></th>
-                        <th>By</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>Via</th>
-                        <th></th>
-                        <th>Dest</th>
-                    </tr>
-                    <tr>
-                        <td>{{ form.source.value}}</td>
-                        <td><img src="{% static "firewall/img/right-arrow.jpg" %}" alt="arrow" width="50" height="50"/></td>
-                        <td>{{ form.sourcenat.value}}</td>
-                        <td><img src="{% static "firewall/img/right-arrow.jpg" %}" alt="arrow" width="50" height="50"/></td>
-                        <td><img src="{% static "firewall/img/cloud.png" %}" alt="Cloud" width="50" height="50"/></td>
-                        <td><img src="{% static "firewall/img/right-arrow.jpg" %}" alt="arrow" width="50" height="50"/></td>
-                        <td>{{ form.destnat.value}}</td>
-                        <td><img src="{% static "firewall/img/right-arrow.jpg" %}" alt="arrow" width="50" height="50"/></td>
-                        <td>{{ form.dest.value}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.source.label}}</td>
-                        <td>From</td>
-                        <td>{{ form.sourcenat.label}}</td>
-                        <td>From</td>
-                        <td>Cloud</td>
-                        <td>To</td>
-                        <td>{{ form.destnat.label}}</td>
-                        <td>To</td>
-                        <td>{{ form.dest.label}}</td>
-                    </tr>
-                </table>
-                <input type="submit" name=validate value="Validate"/>
-            </form>
-        </thead>
+<div class="card" style="max-width:800px">
+  <form method="post" action=".">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-3">{% include 'partials/form_field.html' with field=form.source %}</div>
+      <div class="col-md-3">{% include 'partials/form_field.html' with field=form.sourcenat %}</div>
+      <div class="col-md-3">{% include 'partials/form_field.html' with field=form.dest %}</div>
+      <div class="col-md-3">{% include 'partials/form_field.html' with field=form.destnat %}</div>
     </div>
+    <div class="row">
+      <div class="col-md-3">{% include 'partials/form_field.html' with field=form.port %}</div>
+      <div class="col-md-3">{% include 'partials/form_field.html' with field=form.protocol %}</div>
+      <div class="col-md-3">{% include 'partials/form_field.html' with field=form.ref %}</div>
+      <div class="col-md-3">{% include 'partials/form_field.html' with field=form.ticket %}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">{% include 'partials/form_field.html' with field=form.status %}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">{% include 'partials/form_field.html' with field=form.note %}</div>
+      <div class="col-md-6">{% include 'partials/form_field.html' with field=form.description %}</div>
+    </div>
+
+    {% if form.source.value %}
+    <div class="card" style="background:var(--color-content-bg)">
+      <strong>
+        {% if form.sourcenat.value %}
+          {{ form.source.value }} from {{ form.sourcenat.value }} via {{ form.destnat.value }}:{{ form.port.value }} to {{ form.dest.value }}
+        {% else %}
+          {{ form.source.value }} to {{ form.dest.value }}:{{ form.port.value }}
+        {% endif %}
+      </strong>
+    </div>
+    {% endif %}
+
+    <button type="submit" name="validate" value="Validate" class="btn btn-primary">Validate</button>
+  </form>
 </div>
 {% endblock content %}

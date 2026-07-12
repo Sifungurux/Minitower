@@ -146,3 +146,5 @@ config/jobs/ansible/generated/*
 
 /*/migrations/0*
 data/
+/.worktrees/
+.superpowers/

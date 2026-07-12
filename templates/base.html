@@ -1,82 +1,34 @@
 {% load static %}
- <html>
-   <head>
-     <meta charset="utf-8">
-     <title>
-       {% block title %}
-       {{ page_title|default:"Untitled Page" }}
-       {% endblock title %}
-     </title>
-     <link href="{% static "main/css/bootstrap.css" %}" rel="stylesheet" type="text/css">
-     <link href="{% static "main/css/main.css" %}" rel="stylesheet" type="text/css">
-     <link href="{% static "main/css/jquery.modal.min.css" %}" rel="stylesheet" type="text/css">
-
-
-
-
-     <meta name="docsearch:language" content="en">
-   </head>
-   <body>
-    <script src="{% static "main/js/jquery-3-6-0.js" %}"></script>
-    <script src="{% static "main/js/bootstrap.js" %}"></script>
-    <script src="{% static "main/js/jquery.bootstrap.modal.forms.js" %}"></script>
-
-    
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
-      <img src="{% static "home/img/tower.jpg" %}" width="30" height="30" alt="µTower"/>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="/inventory" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Hosts
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/inventory">Host list</a>
-              <a class="dropdown-item" href="/inventory/add-host/">Add host</a>
-              <a class="dropdown-item" href="{% url 'hostdata_upload' %}">Upload hostfile...</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="/firewall" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Firewalls
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/firewall">Firewll rules</a>
-              <a class="dropdown-item" href="/firewall/add-firewall/">Add firewall rule</a>
-              <a class="dropdown-item" href="{% url 'fwdata_upload' %}">Upload firewall list...</a>
-            </div>
-          </li>
-          <!--<li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li> -->
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" name="host_search"  placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-      <section id="main">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ title|default:"Minitower" }}{% endblock title %}</title>
+  <link href="{% static 'main/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'main/css/theme.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div class="app-shell">
+    {% include 'partials/sidebar.html' %}
+    <div class="main">
+      {% include 'partials/topbar.html' %}
+      <div class="content">
         {% block content %}
-          <p>Placeholder text in base template. Replace with page content.</p>
+        <p>Placeholder text in base template. Replace with page content.</p>
         {% endblock content %}
-      </section>
-      <div class="bottom">
-        <footer id="footer">Copyright &copy;
-          <script type="text/JavaScript">
-            document.write(new Date().getFullYear());
-          </script> Minitower
-          <br/>Made by<br/> System team 4
-        </footer>
       </div>
+      <footer class="site-footer">
+        Copyright &copy; <span id="copyright-year"></span> Minitower — Made by System team 4
+      </footer>
     </div>
+  </div>
 
-   </body>
- </html>
+  <script src="{% static 'main/js/bootstrap.js' %}"></script>
+  <script src="{% static 'main/js/bootstrap5.modal.forms.js' %}"></script>
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
+  {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>
